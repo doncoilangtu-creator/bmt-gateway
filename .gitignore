@@ -1,0 +1,58 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+# local editor / agent workspace
+.vscode/
+.hermes/
+AGENTS.md
+CLAUDE.md
+
+# local source downloads and recovery snapshots
+downloads/
+recovery/
+
+# local design studies and QA artifacts
+mock-concept/
+mock-soho-v2/
+qa-output/
+qa-local.cjs
+qa-responsive.cjs
+
+# superseded source/QA map assets (production uses the optimized clean variants)
+public/images/location/carto-161-nguyen-chi-thanh.webp
+public/images/location/carto-voyager-161-nguyen-chi-thanh.webp
+public/images/location/osm-161-nguyen-chi-thanh.webp
+public/images/location/pdf-page7-basemap-source.jpeg
+public/images/location/pdf-page7-basemap.webp
+public/images/location/pdf-page7-pin.png
+public/images/location/pdf-page7-pin-clean.png
+public/images/location/pdf-page7-pin-white.png
+public/images/location/pdf-page7-routes.svg
+public/images/amenities/amenity-masterplan-p15-source.jpeg
+public/images/amenities/amenity-masterplan-source-page15.png
+public/images/floor-plans/lowrise/shophouse-elevation-page.png
+public/images/floor-plans/lowrise/townhouse-elevation-page.png
+
+.vercel

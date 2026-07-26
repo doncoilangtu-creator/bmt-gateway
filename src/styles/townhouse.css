@@ -1,0 +1,34 @@
+/* Low-rise collection intentionally mirrors Residence Collection. */
+.townhouses{padding:72px 5vw 84px;background:#eee7dc;color:#241a15}
+
+.lowrise-tabs{grid-template-columns:repeat(2,1fr)}
+.lowrise-tabs button:nth-child(2){border-right:0}
+.lowrise-floor-tabs{display:flex;flex-wrap:wrap;gap:0;margin:24px 0 0;border-bottom:1px solid rgba(45,27,19,.25)}
+.lowrise-floor-tabs button{min-width:108px;min-height:46px;padding:0 18px;border:0;border-right:1px solid rgba(45,27,19,.18);background:transparent;color:#766a63;font:600 10px/1 var(--font-label);letter-spacing:.1em;cursor:pointer}
+.lowrise-floor-tabs button.is-active{background:#a85b40;color:#fffaf3}.lowrise-floor-tabs button:focus-visible{outline:2px solid #311d17;outline-offset:-3px}
+.lowrise-panel{grid-template-columns:minmax(0,1.28fr) minmax(320px,.72fr)}
+.residence-plan.lowrise-plan{height:694px;min-height:694px}
+.lowrise-plan img{max-height:670px;object-fit:contain}
+.lowrise-plan-meta strong{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lowrise-perspective,.lowrise-perspective img{min-height:620px}
+.lowrise-perspective{position:relative}.lowrise-perspective img{object-position:center;object-fit:cover;padding:0}
+.lowrise-architecture-label{position:absolute;left:14px;right:14px;bottom:14px;padding:11px 12px;background:rgba(49,29,23,.9);color:#fffaf3;font:600 9px/1.3 var(--font-label);letter-spacing:.1em;text-transform:uppercase}
+
+@media(max-width:900px){
+  .lowrise-panel{grid-template-columns:1fr}
+  .residence-plan.lowrise-plan{height:auto;min-height:560px}
+  .lowrise-perspective,.lowrise-perspective img{min-height:420px;max-height:560px}
+}
+@media(max-width:700px){
+  .townhouses{padding:60px 18px 58px}
+
+  .lowrise-tabs{grid-template-columns:1fr 1fr}
+  .lowrise-tabs button{border-bottom:0}
+  .lowrise-floor-tabs{margin-top:16px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.lowrise-floor-tabs::-webkit-scrollbar{display:none}.lowrise-floor-tabs button{flex:0 0 auto;min-width:92px;padding:0 12px}
+  .lowrise-panel{padding-top:24px;gap:18px}
+  .residence-plan.lowrise-plan{min-height:0;height:54svh;max-height:455px;padding:6px}
+  .lowrise-plan img{max-height:100%}
+  .lowrise-perspective{min-height:0;height:47svh;max-height:390px}
+  .lowrise-perspective img{min-height:0;height:100%;max-height:none}
+  .lowrise-plan-meta strong{max-width:none}
+}

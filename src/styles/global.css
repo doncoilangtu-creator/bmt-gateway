@@ -1,0 +1,118 @@
+@font-face { font-family:'Be Vietnam Pro Local'; src:url('/fonts/be-vietnam-pro-400.ttf') format('truetype'); font-style:normal; font-weight:400; font-display:swap; }
+@font-face { font-family:'Be Vietnam Pro Local'; src:url('/fonts/be-vietnam-pro-500.ttf') format('truetype'); font-style:normal; font-weight:500; font-display:swap; }
+@font-face { font-family:'Be Vietnam Pro Local'; src:url('/fonts/be-vietnam-pro-600.ttf') format('truetype'); font-style:normal; font-weight:600; font-display:swap; }
+@font-face { font-family:'Noto Serif Display Local'; src:url('/fonts/noto-serif-display-500.ttf') format('truetype'); font-style:normal; font-weight:500; font-display:swap; }
+@font-face { font-family:'Noto Serif Display Local'; src:url('/fonts/noto-serif-display-italic-500.ttf') format('truetype'); font-style:italic; font-weight:500; font-display:swap; }
+@font-face { font-family:'Noto Sans Local'; src:url('/fonts/noto-sans-500.ttf') format('truetype'); font-style:normal; font-weight:500; font-display:swap; }
+@font-face { font-family:'Noto Sans Local'; src:url('/fonts/noto-sans-600.ttf') format('truetype'); font-style:normal; font-weight:600; font-display:swap; }
+@import '@astryxdesign/core/reset.css';
+@import '@astryxdesign/core/astryx.css';
+@import '@astryxdesign/theme-chocolate/theme.css';
+@import 'tailwindcss';
+@import './component-overrides.css';
+@import './soho-motion.css';
+
+:root {
+  --color-ivory: #f4ebdd;
+  --color-sand: #d9c4a3;
+  --color-bazan: #8a3b2b;
+  --color-terracotta: #b65a3c;
+  --color-copper: #b87342;
+  --color-coffee: #2d1b13;
+  --color-forest: #1e392d;
+  --color-lake: #a9c7c1;
+  --color-mist: #e7e1d6;
+  --color-ink: #17120e;
+  --color-muted: #76675b;
+  --font-heading: 'Noto Sans Local', 'Be Vietnam Pro Local', sans-serif;
+  --font-body: 'Be Vietnam Pro Local', sans-serif;
+  --font-label: 'Be Vietnam Pro Local', sans-serif;
+  --font-editorial: 'Noto Serif Display Local', Georgia, serif;
+  --container: min(100% - 32px, 1280px);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--color-ivory); }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-ivory);
+  font-size: 15px;
+  line-height: 1.62;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button, input, select, textarea { font: inherit; }
+.container { width: var(--container); margin-inline: auto; }
+.eyebrow {
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+.display {
+  font-family: var(--font-heading);
+  font-size: clamp(30px, 3.15vw, 46px);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 2.8vw, 38px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.body-lg { font-size: clamp(14px, 1.03vw, 15px); line-height: 1.62; }
+.section { padding: clamp(56px, 6.4vw, 92px) 0; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid currentColor;
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  transition: transform .5s var(--ease-out), background .5s var(--ease-out), color .5s var(--ease-out);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--color-bazan); color: var(--color-ivory); border-color: var(--color-bazan); }
+.btn-ghost { color: var(--color-ivory); border-color: rgba(244,235,221,.72); }
+.line { height: 1px; background: rgba(184,115,66,.45); }
+.reveal { animation: revealUp .9s var(--ease-out) both; }
+@keyframes revealUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+/* React form typography must override Astryx theme selectors. */
+body .lead-form label { font-size: 12px; line-height: 1.45; letter-spacing: .07em; }
+body .lead-form input,
+body .lead-form select,
+body .lead-form textarea {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #fff8ef;
+  border-bottom-color: rgba(244,235,221,.46);
+}
+body .lead-form input::placeholder,
+body .lead-form textarea::placeholder { color: rgba(244,235,221,.68); opacity: 1; }
+
+@media (max-width: 760px) {
+  .section { padding: 60px 0; }
+  .display { font-size: clamp(28px, 8.5vw, 38px); line-height: 1.18; }
+  .h2 { font-size: clamp(24px, 7vw, 32px); line-height: 1.18; }
+  body .lead-form input, body .lead-form select, body .lead-form textarea { font-size: 16px; }
+}

@@ -1,0 +1,22 @@
+---
+const groups = [
+  { id: 'water', label: 'Mặt nước & hồ bơi', items: [['07', 'Hồ bơi lớn'], ['08', 'Hồ bơi trẻ em'], ['09', 'Hồ massage'], ['10', 'Hồ cạn'], ['11', 'Tắm tráng'], ['12', 'Chòi nghỉ hồ bơi'], ['15', 'Hồ cảnh vô cực']] },
+  { id: 'garden', label: 'Vườn & nghỉ ngơi', items: [['13', 'Chòi nghỉ đồi núi'], ['14', 'Vườn chìm'], ['19', 'Vườn sưởi'], ['20', 'Đồi nướng'], ['21', 'Đồi thiền · yoga'], ['22', 'Đồi thư giãn'], ['23', 'Vườn nghỉ ngơi'], ['24', 'Hẻm núi'], ['27', 'Vườn bậc thang']] },
+  { id: 'family', label: 'Gia đình & vận động', items: [['16', 'Sân chơi trẻ em'], ['17', 'Sân chơi đèn lồng'], ['18', 'Sân chơi cát'], ['25', 'Sân thể thao đa năng'], ['26', 'Sân thể dục ngoài trời'], ['28', 'Bãi đa năng · biểu tượng đèn lồng']] },
+];
+const pins = [['01', 'Biển hiệu', '14%', '72%'], ['02', 'Hồ nước điểm nhấn', '76%', '75%'], ['03', 'Cảnh quan chào đón', '18%', '64%'], ['04', 'Quảng trường', '28%', '68%'], ['07', 'Hồ bơi lớn', '48%', '59%'], ['08', 'Hồ bơi trẻ em', '58%', '57%'], ['09', 'Hồ massage', '61%', '65%'], ['13', 'Chòi nghỉ đồi núi', '38%', '34%'], ['16', 'Sân chơi trẻ em', '28%', '36%'], ['19', 'Vườn sưởi', '72%', '39%'], ['25', 'Sân thể thao đa năng', '18%', '42%'], ['28', 'Bãi đa năng', '52%', '24%']];
+---
+<section id="amenity-masterplan" class="amenity-masterplan" data-amenity-masterplan data-chapter aria-labelledby="amenity-masterplan-title">
+  <div class="amenity-masterplan-heading"><p class="v2-editorial">04 / Landscape & Amenities</p><h2 id="amenity-masterplan-title">HỆ TIỆN ÍCH<br /><em>ĐẶC QUYỀN ĐA DẠNG</em></h2><p>Đọc toàn bộ lớp cảnh quan, mặt nước, vận động và cộng đồng trong masterplan của BMT Gateway.</p></div>
+  <div class="amenity-masterplan-stage" data-amenity-stage>
+    <div class="amenity-masterplan-canvas" data-amenity-canvas><img src="/images/amenities/amenity-masterplan-p15.webp" alt="Mặt bằng tổng thể cảnh quan BMT Gateway từ hồ sơ StudioMilou" loading="eager" />{pins.map(([number, label, left, top]) => <button class="amenity-pin" type="button" style={`--pin-left:${left};--pin-top:${top}`} data-amenity-pin={number} aria-label={`${number} ${label}`}><b>{number}</b><span>{label}</span></button>)}</div>
+    <div class="amenity-map-controls" aria-label="Điều khiển mặt bằng tiện ích"><button type="button" data-amenity-zoom-out aria-label="Thu nhỏ">−</button><span data-amenity-zoom>100%</span><button type="button" data-amenity-zoom-in aria-label="Phóng to">+</button></div><p class="amenity-source">Nguồn: studioMilou · Master plan · 04.2026</p>
+  </div>
+  <aside class="amenity-rail" aria-label="Danh mục hệ tiện ích">
+    <div class="amenity-rail-intro"><span>01—04</span><strong>Những lớp tiện ích<br />đi qua mỗi ngày</strong></div>
+    <div class="amenity-list amenity-list-primary" aria-label="Tiện ích tiếp cận">
+      {[['01', 'Biển hiệu'], ['02', 'Hồ nước điểm nhấn'], ['03', 'Cảnh quan chào đón'], ['04', 'Quảng trường']].map(([number, label]) => <button type="button" data-amenity-focus={number}><b>{number}</b><span>{label}</span></button>)}
+    </div>
+    {groups.map((group, index) => <details class="amenity-group" open={index === 0}><summary><span>{String(index + 1).padStart(2, '0')}</span>{group.label}<i>⌄</i></summary><div class="amenity-list">{group.items.map(([number, label]) => <button type="button" data-amenity-focus={number}><b>{number}</b><span>{label}</span></button>)}</div></details>)}
+  </aside>
+</section>

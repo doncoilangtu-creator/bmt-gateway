@@ -1,0 +1,72 @@
+/* SOHO-inspired motion kept safe: content is always visible; animation only adds polish. */
+[data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-image-reveal] {
+  clip-path: inset(0 0 0 0);
+  transform: scale(1);
+  filter: saturate(1) contrast(1);
+}
+
+.motion-ready [data-reveal] {
+  animation: sohoReveal .78s var(--ease-out) both;
+}
+
+.motion-ready [data-image-reveal] {
+  animation: sohoImageReveal 1s var(--ease-out) both;
+}
+
+[data-parallax] {
+  will-change: transform;
+  transition: transform .08s linear;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 25%;
+  z-index: 1;
+  background: linear-gradient(0deg, rgba(45,27,19,.64), transparent);
+  pointer-events: none;
+}
+
+.section::before {
+  content: '';
+  display: block;
+  width: min(180px, 28vw);
+  height: 1px;
+  margin: 0 0 clamp(24px, 3.2vw, 38px) max(16px, calc((100vw - 1280px) / 2));
+  background: rgba(184,115,66,.42);
+}
+
+.concept::before,
+.amenities::before,
+.architecture::before,
+.lead::before {
+  background: rgba(244,235,221,.32);
+}
+
+@keyframes sohoReveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes sohoImageReveal {
+  from { clip-path: inset(6% 0 6% 0); transform: scale(1.02); filter: saturate(.94) contrast(.98); }
+  to { clip-path: inset(0); transform: scale(1); filter: saturate(1) contrast(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-ready [data-reveal],
+  .motion-ready [data-image-reveal],
+  [data-parallax] {
+    animation: none;
+    opacity: 1;
+    transform: none !important;
+    clip-path: none;
+    filter: none;
+  }
+}

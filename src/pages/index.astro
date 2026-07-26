@@ -1,0 +1,171 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Header from '../components/Header.astro';
+import LeadForm from '../components/LeadForm';
+import ResidenceCollection from '../components/ResidenceCollection';
+import TownhouseCollection from '../components/TownhouseCollection';
+import LocationStory from '../components/LocationStory.astro';
+import AmenityMasterplan from '../components/AmenityMasterplan.astro';
+import {
+  lowriseProducts,
+  projectProfile,
+  residenceUnits,
+} from '../data/narrative';
+
+const manifesto = [
+  { index: '01', href: '#overview', text: 'Cửa ngõ đô thị trên trục Nguyễn Chí Thanh' },
+  { index: '02', href: '#overview', text: 'Cấu trúc sống cân bằng giữa cao tầng và thấp tầng' },
+  { index: '03', href: '#amenities', text: 'Mảng xanh đi vào từng lớp kiến trúc' },
+  { index: '04', href: '#townhouses', text: 'Phố thương mại nối dài nhịp sống nội khu' },
+  { index: '05', href: '#residences', text: 'Không gian ở phù hợp nhiều thế hệ' },
+  { index: '06', href: '#inquiry', text: 'Điểm gặp mới của cộng đồng Buôn Ma Thuột' },
+];
+---
+<MainLayout title="Xuân Mai BMT Gateway - Cửa ngõ đô thị mới giữa cao nguyên">
+  <Header />
+  <script>
+    import '../scripts/sohoMotion';
+  </script>
+
+  <main id="top" class="soho-v2-page">
+    <section class="v2-hero" data-hero-motion>
+      <picture class="v2-hero-media">
+        <source media="(max-width: 700px)" srcset="/images/new-media/hero-pool.webp" />
+        <img data-hero-image src="/images/new-media/overview-aerial.webp" alt="Phối cảnh tổng thể Xuân Mai BMT Gateway" fetchpriority="high" />
+      </picture>
+      <div class="v2-hero-shade" aria-hidden="true"></div>
+      <div class="v2-hero-lock">
+        <div class="v2-hero-left"><h1 data-hero-line>BẢN SẮC<br />CAO NGUYÊN</h1></div>
+        <div class="v2-hero-project" data-hero-copy><strong>BMT</strong><span>Gateway</span></div>
+        <div class="v2-hero-right"><p data-hero-line>NHỊP SỐNG<br />ĐÔ THỊ MỚI</p></div>
+        <a class="v2-hero-cta" href="#inquiry" data-hero-copy>Nhận thông tin dự án</a>
+      </div>
+      <div class="v2-hero-meta" data-hero-copy><span>Nguyễn Chí Thanh, Tân An</span><span>Buôn Ma Thuột</span></div>
+    </section>
+
+    <section class="v2-manifesto" data-chapter>
+      <header class="v2-manifesto-head">
+        <p class="v2-editorial">Sáu chuyển động của một địa chỉ mới</p>
+        <h2>NƠI KIẾN TRÚC, CẢNH QUAN VÀ GIAO THƯƠNG CÙNG HỘI TỤ</h2>
+      </header>
+      <nav class="v2-manifesto-grid" aria-label="Khám phá câu chuyện dự án">
+        {manifesto.map((item, index) => (
+          <a class:list={['v2-manifesto-item', { 'is-featured': index === 0 }]} href={item.href}>
+            <span>{item.index}</span><strong>{item.text}</strong>
+          </a>
+        ))}
+      </nav>
+    </section>
+
+    <section id="overview" class="v2-overview" data-chapter>
+      <img src="/images/pdf-source/landscape-pool.webp" alt="Phối cảnh 3D bể bơi và cảnh quan nội khu BMT Gateway" loading="eager" />
+      <div class="v2-overview-shade" aria-hidden="true"></div>
+      <article class="v2-overview-panel">
+        <p class="v2-editorial">Tổng quan dự án</p>
+        <h2>MỘT CẤU TRÚC ĐÔ THỊ HOÀN CHỈNH</h2>
+        <dl class="v2-profile">
+          {projectProfile.slice(1).map((item) => <div><dt>{item.label}</dt><dd>{item.value}</dd></div>)}
+        </dl>
+      </article>
+      <div class="v2-overview-facts" data-count-group>
+        <div><strong data-count-value="4,86 ha">4,86 ha</strong><span>Quy mô</span></div>
+        <div><strong data-count-value="984">984</strong><span>Căn hộ</span></div>
+        <div><strong data-count-value="152">152</strong><span>Thấp tầng</span></div>
+      </div>
+    </section>
+
+    <section class="v2-identity" data-chapter>
+      <article class="v2-identity-copy">
+        <p class="v2-editorial">Biểu tượng của một nhịp sống mới</p>
+        <h2>GATEWAY GIỮA THÀNH PHỐ CAO NGUYÊN</h2>
+        <p>Tại cửa ngõ phía Bắc Buôn Ma Thuột, dự án đón những dòng chuyển động từ trung tâm, sân bay và Quốc lộ 14. Kiến trúc hiện đại được đặt trong nền cảnh quan nhiệt đới, tạo nên một địa chỉ sống vừa kết nối vừa có khoảng lùi riêng.</p>
+        <div class="v2-identity-mark" aria-hidden="true">BMT</div>
+      </article>
+      <figure class="v2-identity-media" data-media-reveal><img src="/images/new-media/dusk-facade.webp" alt="Phối cảnh mặt đứng kiến trúc BMT Gateway" loading="eager" /></figure>
+    </section>
+
+    <LocationStory />
+
+    <section class="cinematic-video" data-cinematic-video aria-label="Phim giới thiệu BMT Gateway">
+      <div class="cinematic-stage" data-cinematic-stage>
+        <div class="cinematic-curtain cinematic-curtain-top" data-cinematic-curtain-top aria-hidden="true"></div>
+        <div class="cinematic-frame" data-cinematic-frame>
+          <video
+            data-cinematic-media
+            src="/videos/bmt-gateway-0616-hero.mp4"
+            poster="/images/new-media/overview-aerial.webp"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label="Phim phối cảnh kiến trúc và không gian sống BMT Gateway"
+          ></video>
+          <div class="cinematic-vignette" aria-hidden="true"></div>
+          <div class="cinematic-overlay" data-cinematic-overlay aria-hidden="true">
+            <div class="cinematic-overlay-wordmark">
+              <span class="cinematic-overlay-kicker">Cửa ngõ cao nguyên</span>
+              <strong>BMT</strong>
+              <span class="cinematic-overlay-sub">Gateway</span>
+            </div>
+            <div class="cinematic-overlay-rule"></div>
+            <p>Kiến trúc trong chuyển động</p>
+          </div>
+          <p class="cinematic-caption">BMT Gateway <span>Kiến trúc trong chuyển động</span></p>
+        </div>
+        <div class="cinematic-curtain cinematic-curtain-bottom" data-cinematic-curtain-bottom aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <AmenityMasterplan />
+    <section id="amenities" class="v2-amenities" data-chapter>
+      <img src="/images/new-media/hero-pool.webp" alt="Phối cảnh cảnh quan và tiện ích BMT Gateway" loading="eager" />
+      <div class="v2-amenities-shade" aria-hidden="true"></div>
+      <div class="v2-amenities-title">
+        <p class="v2-editorial">Hệ cảnh quan đa lớp</p>
+        <h2>MỖI NGÀY LÀ MỘT HÀNH TRÌNH TRONG MẢNG XANH</h2>
+      </div>
+      <div class="v2-amenities-rail" aria-label="Nhóm tiện ích">
+        <p>01 / 04</p>
+        <span class="is-active">Mặt nước và hồ bơi</span>
+        <span>Sức khỏe và vận động</span>
+        <span>Gia đình và trẻ nhỏ</span>
+        <span>Cộng đồng và giao lưu</span>
+      </div>
+    </section>
+
+    <section id="residences" class="v2-collection residences" data-chapter>
+      <header class="v2-collection-head residence-heading">
+        <p class="v2-editorial">01 / Residence Collection</p>
+        <h2>MẶT BẰNG CĂN HỘ</h2>
+        <p>Khám phá cách tổ chức không gian, diện tích và công năng của từng loại căn hộ tại BMT Gateway.</p>
+      </header>
+      <ResidenceCollection units={residenceUnits} client:load />
+    </section>
+
+    <section id="townhouses" class="v2-collection residences townhouses" data-chapter>
+      <header class="v2-collection-head residence-heading">
+        <p class="v2-editorial">02 / Lowrise Collection</p>
+        <h2>MẶT BẰNG NHÀ PHỐ</h2>
+        <p>Đặt mặt bằng nguồn StudioMilou cạnh phối cảnh để nhìn rõ cấu trúc, công năng và bối cảnh của từng loại hình thấp tầng.</p>
+      </header>
+      <TownhouseCollection products={lowriseProducts} client:load />
+    </section>
+
+    <section id="inquiry" class="v2-inquiry" data-chapter>
+      <article class="v2-inquiry-copy">
+        <p class="v2-editorial">Khởi đầu một cuộc gặp</p>
+        <h2>NHẬN THÔNG TIN PHÙ HỢP VỚI BẠN</h2>
+        <p>Nhận mặt bằng nguồn, thông tin sản phẩm và tư vấn theo nhu cầu sở hữu.</p>
+        <a href="tel:0877700089">0877 700 089</a>
+      </article>
+      <LeadForm client:load source="soho-v2-inquiry" />
+    </section>
+  </main>
+
+  <footer class="footer-soho v2-footer">
+    <div class="footer-brand"><strong>BMT</strong><span>Gateway</span></div>
+    <p>Đường Nguyễn Chí Thanh, P. Tân An, TP. Buôn Ma Thuột</p>
+    <p>Thông tin và phối cảnh mang tính tham khảo theo hồ sơ thiết kế. Chi tiết chính thức căn cứ tài liệu được chủ đầu tư phê duyệt.</p>
+  </footer>
+</MainLayout>

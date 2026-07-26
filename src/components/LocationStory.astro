@@ -1,0 +1,102 @@
+---
+import routesSvg from '../assets/pdf-page7-routes.svg?raw';
+---
+<section id="location" class="chapter location-story" data-chapter>
+  <div class="location-copy">
+    <p class="editorial-line">Nơi những dòng kết nối gặp gỡ</p>
+    <h2>KẾT NỐI NHỊP SỐNG<br />BUÔN MA THUỘT</h2>
+    <p class="chapter-lead">Từ Nguyễn Chí Thanh, dự án mở kết nối về lõi trung tâm, Quốc lộ 14, sân bay và những không gian đặc trưng của thành phố cao nguyên.</p>
+    <a class="arrow-link" href="https://www.google.com/maps/search/?api=1&query=161+Nguyen+Chi+Thanh+Tan+An+Dak+Lak+630000" target="_blank" rel="noreferrer">Mở bản đồ <span aria-hidden="true">↗</span></a>
+  </div>
+
+  <div class="location-map" data-location-map data-map-zoom="1">
+    <div class="map-stage" data-map-stage>
+      <div class="map-parallax-layer" data-map-parallax>
+        <img data-map-image src="/images/location/pdf-page7-basemap-clean.webp" alt="Bản đồ vệ tinh khu vực dự án Xuân Mai Gateway trích từ hồ sơ StudioMilou" loading="eager" />
+        <div class="map-wash" aria-hidden="true"></div>
+        <div class="map-overlay-shell" data-map-overlay set:html={routesSvg}></div>
+        <svg class="map-route-flow" viewBox="0 0 1190.55 710" preserveAspectRatio="none" aria-hidden="true">
+          <path data-map-route-flow d="M166 698 C300 610 430 505 520 390 C650 235 820 145 1014 75" />
+          <path data-map-route-flow d="M112 699 C245 520 390 350 505 205 L513 21" />
+        </svg>
+        <span class="map-pin-pulse" data-map-pin-pulse aria-hidden="true" style="left:43.2%;top:50.45%"></span>
+        <img class="map-project-pin" data-map-pin src="/images/location/pdf-page7-pin-white.svg" alt="" aria-hidden="true" style="left:43.2%;top:50.45%" />
+        <div class="map-keypoints" aria-hidden="true">
+          <span class="map-keypoint point-an-phu" data-map-label>KĐT ÂN<br />PHÚ</span>
+          <span class="map-keypoint point-ecocity" data-map-label>ECO CITY<br />PREMIA</span>
+          <span class="map-keypoint point-dongdieu" data-map-label>ĐÔNG DIỆU<br />BUÔN MÊ</span>
+          <span class="map-keypoint point-hahuytap" data-map-label>Đ. HÀ HUY TẬP</span>
+          <span class="map-keypoint point-ql14" data-map-label>QL. 14</span>
+          <span class="map-keypoint point-nguyenchithanh" data-map-label>Đ. NGUYỄN CHÍ THANH</span>
+          <span class="map-keypoint point-radius" data-map-label>3 KM</span>
+        </div>
+        <div class="map-reveal-curtain" data-map-curtain aria-hidden="true"></div>
+        <div class="map-reveal-frame" data-map-frame aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="map-controls" aria-label="Điều khiển bản đồ">
+      <button type="button" data-map-zoom-in aria-label="Phóng to bản đồ">+</button>
+      <button type="button" data-map-zoom-out aria-label="Thu nhỏ bản đồ">−</button>
+      <a href="https://www.google.com/maps/search/?api=1&query=161+Nguyen+Chi+Thanh+Tan+An+Dak+Lak+630000" target="_blank" rel="noreferrer">Google Map <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+  <div class="location-times" aria-label="Thông tin kết nối">
+    <div><strong>3 KM</strong><span>Khoảng cách tới Ngã 6 Ban Mê và lõi trung tâm</span></div>
+    <div><strong>QL14</strong><span>Kết nối trực tiếp trục liên vùng Tây Nguyên</span></div>
+    <div><strong>BMT</strong><span>Tiếp cận sân bay và Bảo tàng Thế Giới Cà Phê</span></div>
+    <div><strong>HỒ</strong><span>Liên kết không gian mặt nước Hồ Ông Vả</span></div>
+  </div>
+</section>
+
+<style>
+  .location-story{position:relative;display:grid;grid-template-columns:minmax(290px,.55fr) minmax(0,1.1fr) minmax(270px,.45fr);min-height:760px;padding:0;background:#f5f1ea;overflow:hidden}
+  .location-copy{align-self:center;padding:clamp(60px,7vw,110px) clamp(25px,4vw,70px)}
+  .location-copy h2{margin:18px 0 25px;font:500 clamp(32px,3vw,48px)/1.2 var(--font-heading);letter-spacing:-.018em}
+  .location-copy .editorial-line{margin:0;font-family:var(--font-editorial);font-size:clamp(22px,2vw,32px);font-style:italic;font-weight:500;line-height:1.4;color:#8a3b2b}
+  .chapter-lead{max-width:480px;color:#68594f;line-height:1.8}
+  .location-map{position:relative;min-height:760px;overflow:hidden;background:#d8ded6;isolation:isolate}
+  .location-times{display:flex;flex-direction:column;justify-content:center;padding:24px clamp(22px,3vw,45px);background:#e4d9cc}
+  .location-times>div{display:grid;grid-template-columns:78px 1fr;gap:16px;padding:28px 0;border-bottom:1px solid rgba(48,28,21,.2)}
+  .location-times>div:last-child{border-bottom:0}.location-times strong{font:500 23px/1 var(--font-heading);color:#a85b40}.location-times span{font-size:12px;line-height:1.55;color:#55473f}
+  .map-stage{position:absolute;inset:-6%;overflow:hidden;transform-origin:50% 50%;cursor:grab;will-change:transform}
+  .map-stage:active{cursor:grabbing}
+  .map-parallax-layer{position:absolute;inset:-3% 0;overflow:hidden;will-change:transform}
+  .map-parallax-layer>img[data-map-image]{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.72) sepia(.04) contrast(1.04) brightness(1.02);transform-origin:50% 50%;will-change:transform,filter,clip-path}
+  .map-overlay-shell :global(.pdf-radius-path){stroke:#f2ce92;filter:drop-shadow(0 0 2px rgba(40,22,15,.72))}
+  .map-project-pin{object-fit:contain!important;right:auto!important;bottom:auto!important;width:34px!important;height:34px!important}
+  .map-wash{position:absolute;inset:0;background:linear-gradient(90deg,rgba(239,230,217,.12),transparent 42%),linear-gradient(180deg,rgba(255,251,244,.08),rgba(111,124,104,.03));pointer-events:none}
+  .map-overlay-shell,.map-overlay-shell :global(svg){position:absolute;z-index:2;inset:0;width:100%;height:100%;pointer-events:none}.map-overlay-shell{mix-blend-mode:normal}.map-overlay-shell :global(.pdf-radius-path){opacity:0}.map-overlay-shell :global(.pdf-route){opacity:0}.map-overlay-shell :global([data-pdf-site="true"]){opacity:0}
+  .map-route-flow{position:absolute;z-index:3;inset:0;width:100%;height:100%;pointer-events:none}.map-route-flow path{fill:none;stroke:#ffd0a4;stroke-width:3;stroke-linecap:round;stroke-dasharray:4 18;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 5px rgba(215,91,45,.9));opacity:0}
+  .map-project-pin{position:absolute;left:43.2%!important;top:50.45%!important;right:auto!important;bottom:auto!important;z-index:5;width:34px!important;height:34px!important;transform:translate(-50%,-100%);filter:brightness(0) invert(1) drop-shadow(0 3px 7px rgba(35,22,17,.72)) drop-shadow(0 0 6px rgba(255,248,238,.45));opacity:0;object-fit:contain!important}
+  .map-pin-pulse{position:absolute;left:43.2%!important;top:50.45%!important;right:auto!important;bottom:auto!important;z-index:4;width:26px;height:26px;border:2px solid rgba(255,248,238,.95);border-radius:50%;transform:translate(-50%,-50%);opacity:0;pointer-events:none;box-shadow:0 0 14px rgba(255,220,180,.8)}
+  .map-keypoints{position:absolute;inset:0;z-index:3;pointer-events:none}.map-keypoint{position:absolute;display:inline-block;padding:4px 7px;background:rgba(255,250,242,.84);color:#fff;mix-blend-mode:normal;font:600 10px/1.15 var(--font-label);letter-spacing:.08em;text-transform:uppercase;box-shadow:0 8px 24px rgba(29,17,13,.16);opacity:0}.point-an-phu{left:59%;top:29%;color:#fff;background:rgba(35,27,24,.72)}.point-ecocity{left:59%;top:43%;color:#fff;background:rgba(35,27,24,.72)}.point-dongdieu{left:57%;top:67%;color:#fff;background:rgba(35,27,24,.72)}.point-hahuytap{left:17%;top:59%;transform:rotate(-39deg)}.point-ql14{left:42%;top:72%;transform:rotate(-39deg)}.point-nguyenchithanh{left:73%;top:30%;transform:rotate(-39deg)}.point-radius{left:78%;top:48%;background:transparent;box-shadow:none;color:#caa56b;font-size:11px}
+  .map-reveal-curtain{position:absolute;z-index:4;inset:0;background:linear-gradient(112deg,#311d17 0%,#6d382a 56%,#a85b40 100%);pointer-events:none;transform-origin:right center;will-change:clip-path,transform}
+  .map-reveal-curtain::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,224,204,.18) 48%,transparent 62%)}
+  .map-reveal-frame{position:absolute;z-index:3;inset:18px;border:1px solid rgba(255,248,238,.58);pointer-events:none;will-change:opacity,transform}
+  .map-routes{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+  .map-routes path{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+  .route-mask{stroke:#fff;stroke-width:18}
+  .route-main,.route-branch{stroke:#803923;stroke-width:3.8;stroke-dasharray:13 11;filter:drop-shadow(0 1px 1px rgba(255,250,242,.88))}
+  .route-branch{stroke:#a75a3d;stroke-width:2.1;stroke-dasharray:8 10;opacity:.58}
+  .route-glow{stroke:#ce7d58;stroke-width:15;opacity:.24;filter:blur(5px)}
+  .location-marker{position:absolute;z-index:3;display:grid;grid-template-columns:auto auto;align-items:center;column-gap:10px;color:#2d1b13;font-family:var(--font-label);transform-origin:left center}
+  .location-marker i{position:relative;grid-row:1/3;display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#9d4d35;border:3px solid #fff8ee;box-shadow:0 0 0 6px rgba(157,77,53,.2)}
+  .location-marker i::before,.location-marker i::after{content:'';position:absolute;inset:-8px;border:1px solid rgba(157,77,53,.4);border-radius:50%;animation:mapPulse 2.6s ease-out infinite}
+  .location-marker i::after{animation-delay:1.25s}.location-marker i em{width:3px;height:3px;border-radius:50%;background:#fff8ee}
+  .location-marker b,.location-marker small{width:max-content;padding-inline:7px;background:rgba(255,250,242,.82);backdrop-filter:blur(5px)}
+  .location-marker b{padding-top:4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 5px 16px rgba(45,27,19,.06)}
+  .location-marker small{padding-bottom:4px;color:#66584e;font-size:10px;box-shadow:0 8px 16px rgba(45,27,19,.06)}
+  .marker-project{left:45%;top:54%;z-index:4}.marker-project i{width:25px;height:25px;background:#783622;box-shadow:0 0 0 10px rgba(157,77,53,.3),0 10px 40px rgba(112,53,37,.42)}
+  .marker-project b{color:#fff8ee;background:#783622}.marker-project small{color:#f2dccd;background:#783622}
+  .marker-center{left:18%;top:69%}.marker-lake{left:62%;top:39%}.marker-airport{left:71%;top:23%}
+  .map-signature{position:absolute;right:7%;bottom:8%;display:grid;justify-items:end;color:#2d1b13}.map-signature small{padding:4px 7px;background:rgba(255,250,242,.72);font-size:9px;letter-spacing:.12em}
+  .map-controls{position:absolute;z-index:5;right:22px;top:22px;display:grid;grid-template-columns:46px 46px auto;background:rgba(255,250,242,.92);border:1px solid rgba(45,27,19,.18);backdrop-filter:blur(12px)}
+  .map-controls button,.map-controls a{display:grid;place-items:center;min-height:44px;border:0;border-right:1px solid rgba(45,27,19,.15);background:transparent;color:#2d1b13;font-family:var(--font-label);cursor:pointer;transition:background .25s ease,color .25s ease}
+  .map-controls button{font-size:21px}.map-controls a{grid-auto-flow:column;gap:14px;padding:0 17px;border-right:0;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}.map-controls button:hover,.map-controls a:hover{background:#2d1b13;color:#fff8ee}
+  .map-attribution{position:absolute;z-index:5;right:22px;bottom:18px;margin:0;padding:3px 7px;background:rgba(255,250,242,.82);color:#75675d;font-size:8px}
+  @keyframes mapPulse{0%{opacity:.75;transform:scale(.7)}70%,100%{opacity:0;transform:scale(1.7)}}
+  @media(max-width:1000px){.location-story{grid-template-columns:1fr;min-height:0}.location-copy{padding:58px 28px 42px}.location-map{min-height:560px}.location-times{display:grid;grid-template-columns:1fr 1fr}.location-marker small{display:none}.map-controls{right:14px;top:14px}}
+  @media(max-width:520px){.location-copy{padding:48px 18px 34px}.location-copy h2{margin:8px 0 15px;font-size:29px}.location-copy br{display:none}.location-copy .chapter-lead{font-size:15px;line-height:1.68}.arrow-link{min-height:48px;margin-top:18px}.location-map{min-height:0;height:52svh;max-height:440px;touch-action:pan-y}.map-stage{inset:-4%}.map-project-pin{width:28px;height:28px}.map-keypoint{font-size:8px;padding:3px 5px}.point-an-phu{left:58%;top:28%}.point-ecocity{left:56%;top:42%}.point-dongdieu{left:54%;top:65%}.point-hahuytap{left:14%;top:57%}.point-ql14{left:40%;top:71%}.point-nguyenchithanh{left:70%;top:30%}.point-radius{left:76%;top:47%}.map-controls{grid-template-columns:44px 44px;right:10px;top:10px}.map-controls button{min-height:44px}.map-controls a{grid-column:1/3;border-top:1px solid rgba(45,27,19,.15);min-height:44px}.location-times{grid-template-columns:1fr;padding:0 18px 25px}.location-times>div{grid-template-columns:70px 1fr;padding:18px 0}.location-times strong{font-size:20px}}
+  @media(prefers-reduced-motion:reduce){.location-marker i::before,.location-marker i::after{animation:none}}
+</style>

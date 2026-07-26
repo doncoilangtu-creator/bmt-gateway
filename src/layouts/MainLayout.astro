@@ -1,0 +1,29 @@
+---
+import '../styles/global.css';
+import '../styles/home.css';
+import '../styles/component-overrides.css';
+import '../styles/responsive.css';
+import '../styles/townhouse.css';
+import '../styles/soho-v2.css';
+import '../styles/cinematic-video.css';
+const {
+  title = 'BMT Gateway - Cua ngo song moi giua long Buon Ma Thuot',
+  description = 'Xuân Mai BMT Gateway là tổ hợp căn hộ, townhouse, shophouse và nhà ở xã hội trên khu đất 4,86 ha tại đường Nguyễn Chí Thanh, phường Tân An, Buôn Ma Thuột.',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/images/new-media/hero-pool.webp" />
+    <link rel="preload" as="image" href="/images/new-media/hero-pool.webp" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

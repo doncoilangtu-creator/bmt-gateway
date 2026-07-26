@@ -1,0 +1,77 @@
+---
+import type { DetailItem } from '../data/narrative';
+
+const { items } = Astro.props as { items: DetailItem[] };
+const icons = ['signature', 'location', 'developer', 'design', 'structure', 'product'];
+---
+<section class="profile-editorial" data-profile-editorial aria-labelledby="profile-title">
+  <div class="profile-intro">
+    <div class="profile-kicker"><span>02</span><i aria-hidden="true"></i><small>Project profile</small></div>
+    <p class="editorial-line">Thông tin nền tảng</p>
+    <h3 id="profile-title">HỒ SƠ<br />DỰ ÁN</h3>
+    <p>Quy mô, đơn vị phát triển và cấu trúc tạo nên một cửa ngõ đô thị mới tại Buôn Ma Thuột.</p>
+    <svg class="profile-watermark" viewBox="0 0 240 180" aria-hidden="true">
+      <path d="M12 160L55 85l43 34 34-88 42 63 54-55M22 149h198M51 94v55M98 119v30M132 31v118M174 94v55" />
+    </svg>
+  </div>
+
+  <details class="profile-data" data-responsive-detail>
+    <summary><span>Xem 6 thông tin dự án</span><i aria-hidden="true">+</i></summary>
+    <div class="profile-records">
+      {items.map((item, index) => (
+        <article class:list={['profile-record', `profile-${icons[index]}`, { 'profile-half': index === 2 || index === 3 }]} style={`--order:${index}`}>
+          <div class="profile-icon" aria-hidden="true">
+            {index === 0 && <svg viewBox="0 0 32 32"><path d="M6 25V7h20v18M10 12h12M10 17h12M10 22h7"/><path d="M4 28h24"/></svg>}
+            {index === 1 && <svg viewBox="0 0 32 32"><path d="M16 29s9-8.6 9-17A9 9 0 1 0 7 12c0 8.4 9 17 9 17Z"/><circle cx="16" cy="12" r="3"/></svg>}
+            {index === 2 && <svg viewBox="0 0 32 32"><path d="M5 27V10l11-5 11 5v17M10 14h3m6 0h3m-12 5h3m6 0h3M14 27v-5h4v5"/></svg>}
+            {index === 3 && <svg viewBox="0 0 32 32"><path d="m6 26 4-10L23 3l6 6-13 13-10 4Z"/><path d="m10 16 6 6M20 6l6 6M5 27l6-2"/></svg>}
+            {index === 4 && <svg viewBox="0 0 32 32"><path d="M4 27h24M7 27V14h7v13m4 0V5h7v22M7 10h7M18 10h7M18 15h7M18 20h7"/></svg>}
+            {index === 5 && <svg viewBox="0 0 32 32"><path d="M5 12 16 5l11 7v14H5V12Z"/><path d="M10 26v-8h5v8m5-8h3m-3 4h3M5 14h22"/></svg>}
+          </div>
+          <div class="profile-record-copy">
+            <span>{item.label}</span>
+            <p>{index === 5 ? item.value.replaceAll(', ', ' · ') : item.value}</p>
+          </div>
+          <i class="profile-rule" aria-hidden="true"></i>
+        </article>
+      ))}
+    </div>
+  </details>
+</section>
+
+<script>
+  document.querySelectorAll('[data-profile-editorial]').forEach((section) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      section.classList.add('is-visible');
+      section.querySelector('.profile-records')?.classList.add('is-animated');
+      observer.disconnect();
+    }, { threshold: .18 });
+    observer.observe(section);
+  });
+</script>
+
+<style>
+  .profile-editorial{position:relative;display:grid;grid-template-columns:minmax(260px,.62fr) minmax(0,1.38fr);gap:clamp(55px,8vw,120px);width:min(1080px,92%);margin:clamp(65px,7vw,95px) auto 0;padding:clamp(40px,4.5vw,60px) 0 12px;border-top:1px solid rgba(45,27,19,.28);overflow:hidden}
+  .profile-intro{position:relative;min-height:390px;padding-right:20px}
+  .profile-kicker{display:flex;align-items:center;gap:14px;color:#a85b40;font:600 10px/1 var(--font-label);letter-spacing:.15em;text-transform:uppercase}
+  .profile-kicker i{width:35px;height:1px;background:currentColor}.profile-kicker small{font:inherit}
+  .profile-intro .editorial-line{margin:45px 0 10px;font-size:clamp(19px,1.7vw,26px)}
+  .profile-intro h3{margin:0;font:500 clamp(38px,4.1vw,59px)/1.08 var(--font-heading);letter-spacing:-.025em}
+  .profile-intro>p:last-of-type{max-width:310px;margin:25px 0 0;color:#6f6156;font-size:15px;line-height:1.8}
+  .profile-watermark{position:absolute;left:-45px;bottom:-10px;width:270px;height:auto;opacity:.055;pointer-events:none}.profile-watermark path{fill:none;stroke:#2d1b13;stroke-width:1.2}
+  .profile-data summary{display:none}.profile-records{display:grid;grid-template-columns:1fr 1fr;align-content:start}
+  .profile-record{position:relative;grid-column:1/-1;display:grid;grid-template-columns:38px 1fr;gap:20px;align-items:start;min-height:108px;padding:24px 4px 22px;border-top:1px solid rgba(45,27,19,.16);transition:background .35s ease,padding .35s ease}
+  .profile-record:first-child{border-top:0}.profile-record.profile-half{grid-column:auto}.profile-record.profile-half:nth-child(3){padding-right:27px;border-right:1px solid rgba(45,27,19,.16)}.profile-record.profile-half:nth-child(4){padding-left:27px}
+  .profile-icon{display:grid;place-items:center;width:34px;height:34px;color:#a85b40;transition:color .3s ease,transform .35s cubic-bezier(.16,1,.3,1)}
+  .profile-icon svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round}
+  .profile-record-copy span{display:block;margin:1px 0 8px;color:#9c563e;font:600 10px/1.4 var(--font-label);letter-spacing:.12em;text-transform:uppercase}
+  .profile-record-copy p{margin:0;color:#2d1b13;font-size:clamp(16px,1.35vw,20px);font-weight:500;line-height:1.5}
+  .profile-record:first-child .profile-record-copy p{font-size:clamp(21px,1.8vw,27px)}
+  .profile-rule{position:absolute;left:0;bottom:-1px;width:0;height:1px;background:#a85b40;transition:width .55s cubic-bezier(.16,1,.3,1)}
+  .profile-record:hover{background:rgba(255,250,242,.45);padding-left:12px;padding-right:12px}.profile-record:hover .profile-icon{color:#703525;transform:translateX(4px)}.profile-record:hover .profile-rule{width:100%}
+  .profile-record{opacity:1;transform:none}.profile-records.is-animated .profile-record{animation:profileIn .65s cubic-bezier(.16,1,.3,1) calc(var(--order)*80ms) both}@keyframes profileIn{from{opacity:.35;transform:translateY(12px)}to{opacity:1;transform:none}}
+  @media(max-width:820px){.profile-editorial{grid-template-columns:1fr;gap:35px}.profile-intro{min-height:auto;padding-bottom:25px}.profile-watermark{right:0;left:auto;bottom:0}.profile-records{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.profile-editorial{width:100%;margin-top:42px;padding-top:28px}.profile-intro{padding-bottom:8px}.profile-intro .editorial-line{margin:28px 0 7px}.profile-intro h3{font-size:34px}.profile-intro>p:last-of-type{margin-top:16px;font-size:14px;line-height:1.65}.profile-watermark{display:none}.profile-data summary{display:flex;align-items:center;justify-content:space-between;min-height:52px;border-block:1px solid rgba(45,27,19,.18);font:600 10px/1 var(--font-label);letter-spacing:.1em;text-transform:uppercase;cursor:pointer;list-style:none}.profile-data summary::-webkit-details-marker{display:none}.profile-data summary i{font-size:20px;font-style:normal;transition:transform .25s ease}.profile-data[open] summary i{transform:rotate(45deg)}.profile-records{grid-template-columns:1fr 1fr;gap:0 14px}.profile-record,.profile-record.profile-half{grid-column:auto;padding:16px 0!important;border-right:0!important;min-height:0}.profile-record:nth-child(1),.profile-record:nth-child(2),.profile-record:nth-child(5),.profile-record:nth-child(6){grid-column:1/-1}.profile-icon{width:28px;height:28px}.profile-icon svg{width:23px;height:23px}.profile-record{grid-template-columns:28px 1fr;gap:11px}.profile-record-copy span{font-size:8px;margin-bottom:5px}.profile-record-copy p,.profile-record:first-child .profile-record-copy p{font-size:14px;line-height:1.45}}
+</style>
