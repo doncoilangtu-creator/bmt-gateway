@@ -173,6 +173,7 @@ const setupMap = () => {
   let dragging = false;
   let startX = 0;
   let startY = 0;
+  let mapRect = map.getBoundingClientRect();
 
   const applyManualTransform = () => {
     gsap.to(stage, {
@@ -187,26 +188,29 @@ const setupMap = () => {
   };
 
   zoomIn?.addEventListener('click', () => {
-    manualScale = Math.min(1.34, manualScale + .12);
+    manualScale = Math.min(2.4, manualScale + .25);
     applyManualTransform();
   });
   zoomOut?.addEventListener('click', () => {
-    manualScale = Math.max(1, manualScale - .12);
+    manualScale = Math.max(1, manualScale - .25);
     if (manualScale === 1) panX = panY = 0;
     applyManualTransform();
   });
 
   stage.addEventListener('pointerdown', (event) => {
-    if (manualScale <= 1) return;
     dragging = true;
+    mapRect = map.getBoundingClientRect();
     startX = event.clientX - panX;
     startY = event.clientY - panY;
     stage.setPointerCapture(event.pointerId);
   });
   stage.addEventListener('pointermove', (event) => {
     if (!dragging) return;
-    panX = Math.max(-110, Math.min(110, event.clientX - startX));
-    panY = Math.max(-80, Math.min(80, event.clientY - startY));
+    // pan limit scales with zoom: centered expansion + the stage's 6% inset bleed
+    const limX = mapRect.width * (manualScale - 1) / 2 + mapRect.width * .06;
+    const limY = mapRect.height * (manualScale - 1) / 2 + mapRect.height * .06;
+    panX = Math.max(-limX, Math.min(limX, event.clientX - startX));
+    panY = Math.max(-limY, Math.min(limY, event.clientY - startY));
     gsap.set(stage, { x: panX, y: panY });
   });
   const endDrag = () => { dragging = false; };
