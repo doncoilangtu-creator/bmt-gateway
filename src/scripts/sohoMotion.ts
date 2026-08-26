@@ -301,53 +301,148 @@ const setupAmenityMasterplan = () => {
   const zoomLabel = root.querySelector<HTMLElement>('[data-amenity-zoom]');
   const pins = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-amenity-pin]'));
   const focusButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-amenity-focus]'));
+  const groups = Array.from(root.querySelectorAll<HTMLElement>('.amenity-group'));
   if (!canvas || !zoomLabel) return;
 
   let zoom = 1;
   let selectedId = '';
-  const openOwningGroup = (button: HTMLButtonElement | undefined) => {
-    const group = button?.closest<HTMLDetailsElement>('.amenity-group');
-    if (group) group.open = true;
+  // Track which groups were opened explicitly by user clicking accordion summary
+  const userOpenedGroups = new Set<HTMLElement>();
+  groups.forEach((group) => {
+    if (group.classList.contains('is-open')) {
+      userOpenedGroups.add(group);
+    }
+    const summary = group.querySelector<HTMLButtonElement>('.amenity-group-summary');
+    summary?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = group.classList.contains('is-open');
+      if (isOpen) {
+        group.classList.remove('is-open');
+        summary.setAttribute('aria-expanded', 'false');
+        userOpenedGroups.delete(group);
+      } else {
+        group.classList.add('is-open');
+        summary.setAttribute('aria-expanded', 'true');
+        userOpenedGroups.add(group);
+      }
+    });
+  });
+
+  // Hover-temporary opened group
+  let tempOpenedGroup: HTMLElement | null = null;
+
+  const getOwningGroup = (button: HTMLButtonElement | undefined): HTMLElement | null => {
+    return button?.closest<HTMLElement>('.amenity-group') || null;
   };
-  const setActive = (id: string, revealGroup = false) => {
+
+  const setGroupOpenState = (group: HTMLElement, open: boolean) => {
+    group.classList.toggle('is-open', open);
+    const summary = group.querySelector<HTMLButtonElement>('.amenity-group-summary');
+    summary?.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+
+  const setActive = (id: string, isPreview = false) => {
     pins.forEach((pin) => pin.classList.toggle('is-active', pin.dataset.amenityPin === id));
-    focusButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.amenityFocus === id));
+    focusButtons.forEach((button) => {
+      const match = button.dataset.amenityFocus === id;
+      button.classList.toggle('is-active', match);
+      if (match && id) {
+        button.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    });
     root.dataset.amenityActive = id;
-    if (revealGroup) openOwningGroup(focusButtons.find((button) => button.dataset.amenityFocus === id));
+
+    const targetButton = focusButtons.find((button) => button.dataset.amenityFocus === id);
+    const owningGroup = getOwningGroup(targetButton);
+
+    if (isPreview) {
+      if (owningGroup && !owningGroup.classList.contains('is-open')) {
+        // Close previous temp if different
+        if (tempOpenedGroup && tempOpenedGroup !== owningGroup && !userOpenedGroups.has(tempOpenedGroup)) {
+          setGroupOpenState(tempOpenedGroup, false);
+        }
+        tempOpenedGroup = owningGroup;
+        setGroupOpenState(owningGroup, true);
+      }
+    } else {
+      // Permanent selection
+      if (owningGroup) {
+        userOpenedGroups.add(owningGroup);
+        setGroupOpenState(owningGroup, true);
+      }
+      tempOpenedGroup = null;
+    }
   };
+
   const preview = (id: string) => setActive(id, true);
-  const restoreSelection = () => setActive(selectedId, false);
+
+  const restoreSelection = () => {
+    if (tempOpenedGroup && !userOpenedGroups.has(tempOpenedGroup)) {
+      setGroupOpenState(tempOpenedGroup, false);
+      tempOpenedGroup = null;
+    }
+    setActive(selectedId, false);
+  };
+
   const applyZoom = () => {
     gsap.to(canvas, { scale: zoom, duration: reduceMotion ? 0 : .65, ease: 'power3.out' });
     zoomLabel.textContent = `${Math.round(zoom * 100)}%`;
   };
+
   root.querySelector<HTMLButtonElement>('[data-amenity-zoom-in]')?.addEventListener('click', () => { zoom = Math.min(1.55, zoom + .15); applyZoom(); });
   root.querySelector<HTMLButtonElement>('[data-amenity-zoom-out]')?.addEventListener('click', () => { zoom = Math.max(1, zoom - .15); applyZoom(); });
+
   pins.forEach((pin) => {
     const id = pin.dataset.amenityPin || '';
     pin.addEventListener('pointerenter', () => preview(id));
+    pin.addEventListener('mouseenter', () => preview(id));
     pin.addEventListener('focus', () => preview(id));
     pin.addEventListener('pointerleave', restoreSelection);
+    pin.addEventListener('mouseleave', restoreSelection);
     pin.addEventListener('blur', restoreSelection);
-    pin.addEventListener('click', () => { selectedId = id; setActive(id, true); });
+    pin.addEventListener('click', () => { selectedId = id; setActive(id, false); });
   });
+
   focusButtons.forEach((button) => {
     const id = button.dataset.amenityFocus || '';
     button.addEventListener('pointerenter', () => preview(id));
+    button.addEventListener('mouseenter', () => preview(id));
     button.addEventListener('focus', () => preview(id));
     button.addEventListener('pointerleave', restoreSelection);
+    button.addEventListener('mouseleave', restoreSelection);
     button.addEventListener('blur', restoreSelection);
-    button.addEventListener('click', () => { selectedId = id; setActive(id, true); });
+    button.addEventListener('click', () => { selectedId = id; setActive(id, false); });
   });
 
   if (reduceMotion) return;
-  gsap.set(root.querySelector('.amenity-masterplan-heading'), { y: 28, autoAlpha: 0 });
+
+  const heading = root.querySelector('.amenity-masterplan-heading');
+  const railIntro = root.querySelector('.amenity-rail-intro');
+  const listPrimaryButtons = root.querySelectorAll('.amenity-list-primary button');
+  const groupElements = root.querySelectorAll('.amenity-group');
+
+  gsap.set(heading, { y: 28, autoAlpha: 0 });
   gsap.set(canvas, { scale: 1.08, autoAlpha: .72 });
-  gsap.set(root.querySelectorAll('.amenity-pin'), { autoAlpha: 0, scale: .72 });
-  gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 78%', once: true } })
-    .to(root.querySelector('.amenity-masterplan-heading'), { y: 0, autoAlpha: 1, duration: .85, ease: 'power3.out' })
+  gsap.set(pins, { autoAlpha: 0, scale: .72 });
+  if (railIntro) gsap.set(railIntro, { y: 20, autoAlpha: 0 });
+  if (listPrimaryButtons.length) gsap.set(listPrimaryButtons, { y: 14, autoAlpha: 0 });
+  if (groupElements.length) gsap.set(groupElements, { y: 16, autoAlpha: 0 });
+
+  const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 78%', once: true } });
+
+  tl.to(heading, { y: 0, autoAlpha: 1, duration: .85, ease: 'power3.out' })
     .to(canvas, { scale: 1, autoAlpha: 1, duration: 1.4, ease: 'power2.out' }, '<.08')
-    .to(root.querySelectorAll('.amenity-pin'), { autoAlpha: 1, scale: 1, duration: .55, stagger: .06, ease: 'back.out(1.5)' }, '<.25');
+    .to(pins, { autoAlpha: 1, scale: 1, duration: .55, stagger: .05, ease: 'back.out(1.5)' }, '<.25');
+
+  if (railIntro) {
+    tl.to(railIntro, { y: 0, autoAlpha: 1, duration: .6, ease: 'power2.out' }, '<.15');
+  }
+  if (listPrimaryButtons.length) {
+    tl.to(listPrimaryButtons, { y: 0, autoAlpha: 1, duration: .45, stagger: .07, ease: 'power2.out' }, '-=.3');
+  }
+  if (groupElements.length) {
+    tl.to(groupElements, { y: 0, autoAlpha: 1, duration: .55, stagger: .12, ease: 'power2.out' }, '-=.2');
+  }
 };
 
 if (!reduceMotion) {

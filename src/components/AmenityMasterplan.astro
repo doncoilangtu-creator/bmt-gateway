@@ -17,6 +17,19 @@ const pins = [['01', 'Biển hiệu', '14%', '72%'], ['02', 'Hồ nước điể
     <div class="amenity-list amenity-list-primary" aria-label="Tiện ích tiếp cận">
       {[['01', 'Biển hiệu'], ['02', 'Hồ nước điểm nhấn'], ['03', 'Cảnh quan chào đón'], ['04', 'Quảng trường']].map(([number, label]) => <button type="button" data-amenity-focus={number}><b>{number}</b><span>{label}</span></button>)}
     </div>
-    {groups.map((group, index) => <details class="amenity-group" open={index === 0}><summary><span>{String(index + 1).padStart(2, '0')}</span>{group.label}<i>⌄</i></summary><div class="amenity-list">{group.items.map(([number, label]) => <button type="button" data-amenity-focus={number}><b>{number}</b><span>{label}</span></button>)}</div></details>)}
+    {groups.map((group, index) => (
+      <div class={`amenity-group ${index === 0 ? 'is-open' : ''}`} data-group-id={group.id}>
+        <button type="button" class="amenity-group-summary" aria-expanded={index === 0 ? 'true' : 'false'}>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          {group.label}
+          <i>⌄</i>
+        </button>
+        <div class="amenity-group-body">
+          <div class="amenity-list">
+            {group.items.map(([number, label]) => <button type="button" data-amenity-focus={number}><b>{number}</b><span>{label}</span></button>)}
+          </div>
+        </div>
+      </div>
+    ))}
   </aside>
 </section>
