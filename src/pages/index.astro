@@ -6,6 +6,8 @@ import ResidenceCollection from '../components/ResidenceCollection';
 import TownhouseCollection from '../components/TownhouseCollection';
 import LocationStory from '../components/LocationStory.astro';
 import AmenityMasterplan from '../components/AmenityMasterplan.astro';
+import ManifestoBackground from '../components/ManifestoBackground';
+import InquiryPhoneCta from '../components/InquiryPhoneCta';
 import {
   lowriseProducts,
   projectProfile,
@@ -44,6 +46,7 @@ const manifesto = [
     </section>
 
     <section class="v2-manifesto" data-chapter>
+      <ManifestoBackground client:idle />
       <header class="v2-manifesto-head">
         <p class="v2-editorial">Sáu chuyển động của một địa chỉ mới</p>
         <h2>NƠI KIẾN TRÚC, CẢNH QUAN VÀ GIAO THƯƠNG CÙNG HỘI TỤ</h2>
@@ -157,7 +160,7 @@ const manifesto = [
         <p class="v2-editorial">Khởi đầu một cuộc gặp</p>
         <h2>NHẬN THÔNG TIN PHÙ HỢP VỚI BẠN</h2>
         <p>Nhận mặt bằng nguồn, thông tin sản phẩm và tư vấn theo nhu cầu sở hữu.</p>
-        <a href="tel:0877700089">0877 700 089</a>
+        <InquiryPhoneCta client:idle />
       </article>
       <LeadForm client:load source="soho-v2-inquiry" />
     </section>
