@@ -274,7 +274,7 @@ const setupMap = () => {
     .to(curtain, { clipPath: 'inset(0% 0% 0% 100%)', xPercent: 4, autoAlpha: 0, duration: 1.25, ease: 'power3.inOut' }, 0)
     .to(image, { scale: 1.025, xPercent: 0, yPercent: 0, clipPath: 'inset(0% 0% 0% 0%)', filter: 'saturate(.76) sepia(.03) contrast(1.05) brightness(1.03)', duration: 2.65, ease: 'power3.out' }, .12)
     .to(revealFrame, { autoAlpha: .5, scale: 1, duration: .85, ease: 'power2.out' }, .4)
-    .to(radiusPaths, { autoAlpha: .9, duration: 1.4, stagger: .06, ease: 'power1.out' }, .55)
+    .to(radiusPaths, { autoAlpha: 1, duration: 1.1, stagger: .05, ease: 'power1.out' }, .35)
     .to(routePaths, { autoAlpha: 1, duration: .38, stagger: .08, ease: 'power1.out' }, .72)
     .to(routeFlowPaths, { autoAlpha: .9, duration: .45, stagger: .12 }, .92)
     .to(siteShape, { autoAlpha: 1, scale: 1, duration: .55, ease: 'back.out(1.6)' }, 1.05)
