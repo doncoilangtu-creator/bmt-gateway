@@ -29,9 +29,9 @@
   .hero-lockup{top:46%;width:calc(100% - 32px)}
   .hero-editorial{font-size:19px;line-height:1.35}
   .hero-lockup h1{font-size:clamp(35px,9.8vw,42px);line-height:1.08;letter-spacing:-.012em}
-  .hero-location{margin-top:17px;font-size:9px;letter-spacing:.16em}
+  .hero-location{margin-top:17px;font-size:10px;letter-spacing:.16em}
   .hero-project{right:18px;bottom:24px}.hero-project span{font-size:15px}.hero-project strong{font-size:11px}
-  .hero-scroll{left:18px;bottom:24px;min-height:44px;font-size:9px}.hero-scroll i{width:38px}
+  .hero-scroll{left:18px;bottom:24px;min-height:44px;font-size:10px}.hero-scroll i{width:38px}
 
   .project-statement,.residences{padding:52px var(--mobile-gutter)}
   .project-intro{margin:0 0 28px}.project-intro br{display:none}
@@ -41,14 +41,14 @@
   .project-facts>div{min-height:105px;padding:17px 12px 15px 0}
   .project-facts>div:nth-child(even){padding-left:14px}
   .project-facts strong{font-size:28px}
-  .project-facts span{margin-top:7px;font-size:9px;line-height:1.4;letter-spacing:.07em}
+  .project-facts span{margin-top:7px;font-size:10px;line-height:1.4;letter-spacing:.07em}
 
   .landscape-story{display:block;min-height:0}
   .landscape-media{min-height:0;height:44svh;max-height:390px}
   .landscape-copy{padding:46px var(--mobile-gutter)}
   .landscape-copy br{display:none}
   .landscape-facts{margin-top:28px}
-  .landscape-facts>div{padding:13px 0}.landscape-facts strong{font-size:25px}.landscape-facts span{max-width:48%;font-size:9px}
+  .landscape-facts>div{padding:13px 0}.landscape-facts strong{font-size:25px}.landscape-facts span{max-width:48%;font-size:10px}
   .landscape-program{display:block}
   .program-column{padding:0;background:#20352c;border-top:1px solid rgba(244,235,221,.18)}
   .program-column summary{min-height:58px;padding:0 var(--mobile-gutter);cursor:pointer}
@@ -59,7 +59,7 @@
 
   .connectivity-band{grid-template-columns:1fr 1fr;padding:0}
   .connectivity-band>div{min-height:112px;padding:18px var(--mobile-gutter);border-right:1px solid rgba(45,27,19,.14)}
-  .connectivity-band>div:nth-child(even){border-right:0}.connectivity-band span{font-size:9px}.connectivity-band strong{font-size:13px;line-height:1.45}
+  .connectivity-band>div:nth-child(even){border-right:0}.connectivity-band span{font-size:10px}.connectivity-band strong{font-size:13px;line-height:1.45}
 
   .residence-heading{display:block;width:100%;margin:0 0 28px}.residence-heading br{display:none}.residence-heading>p:last-child{font-size:14px;line-height:1.65}
 

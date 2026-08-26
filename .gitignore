@@ -56,3 +56,14 @@ public/images/floor-plans/lowrise/shophouse-elevation-page.png
 public/images/floor-plans/lowrise/townhouse-elevation-page.png
 
 .vercel
+
+# impeccable-ignore-start
+.impeccable/
+.impeccable/config.local.json
+.impeccable/hook.cache.json
+.impeccable/hook.pending.json
+.impeccable/*.png
+.impeccable/live/server.json
+.impeccable/live/sessions/
+.impeccable/live/previews/
+# impeccable-ignore-end
