@@ -154,7 +154,7 @@ const setupMap = () => {
   const stage = map.querySelector<HTMLElement>('[data-map-stage]');
   const image = map.querySelector<HTMLElement>('[data-map-image]');
   const parallaxLayer = map.querySelector<HTMLElement>('[data-map-parallax]');
-  const radiusPaths = Array.from(map.querySelectorAll<SVGPathElement>('[data-pdf-radius="true"]'));
+  const radiusPaths = Array.from(map.querySelectorAll<SVGElement>('[data-map-radius-ring]'));
   const routePaths = Array.from(map.querySelectorAll<SVGPathElement>('[data-pdf-route="true"]'));
   const routeFlowPaths = Array.from(map.querySelectorAll<SVGPathElement>('[data-map-route-flow]'));
   const siteShape = map.querySelector<SVGPathElement>('[data-pdf-site="true"]');
@@ -165,6 +165,7 @@ const setupMap = () => {
   const revealFrame = map.querySelector<HTMLElement>('[data-map-frame]');
   const zoomIn = map.querySelector<HTMLButtonElement>('[data-map-zoom-in]');
   const zoomOut = map.querySelector<HTMLButtonElement>('[data-map-zoom-out]');
+  const zoomLevel = map.querySelector<HTMLElement>('[data-map-zoom-level]');
   if (!stage || !image) return;
 
   let manualScale = 1;
@@ -174,6 +175,12 @@ const setupMap = () => {
   let startX = 0;
   let startY = 0;
   let mapRect = map.getBoundingClientRect();
+
+  const updateZoomDisplay = () => {
+    if (zoomLevel) {
+      zoomLevel.textContent = `${Math.round(manualScale * 100)}%`;
+    }
+  };
 
   const applyManualTransform = () => {
     gsap.to(stage, {
@@ -185,6 +192,7 @@ const setupMap = () => {
       overwrite: 'auto',
     });
     map.dataset.mapZoom = manualScale.toFixed(2);
+    updateZoomDisplay();
   };
 
   zoomIn?.addEventListener('click', () => {
@@ -197,25 +205,79 @@ const setupMap = () => {
     applyManualTransform();
   });
 
+  // Track pointers for 1-finger pan & 2-finger pinch
+  const activePointers = new Map<number, { clientX: number; clientY: number }>();
+  let initialPinchDistance = 0;
+  let initialPinchScale = 1;
+  let lastTapTime = 0;
+
+  const getDistance = (p1: { clientX: number; clientY: number }, p2: { clientX: number; clientY: number }) => {
+    return Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY);
+  };
+
   stage.addEventListener('pointerdown', (event) => {
-    dragging = true;
-    mapRect = map.getBoundingClientRect();
-    startX = event.clientX - panX;
-    startY = event.clientY - panY;
+    const now = Date.now();
+    if (now - lastTapTime < 280 && activePointers.size === 0) {
+      // Double tap / double click to zoom in
+      manualScale = Math.min(2.4, manualScale + 0.35);
+      applyManualTransform();
+      lastTapTime = 0;
+      return;
+    }
+    lastTapTime = now;
+
+    activePointers.set(event.pointerId, { clientX: event.clientX, clientY: event.clientY });
     stage.setPointerCapture(event.pointerId);
+    mapRect = map.getBoundingClientRect();
+
+    if (activePointers.size === 1) {
+      dragging = true;
+      startX = event.clientX - panX;
+      startY = event.clientY - panY;
+    } else if (activePointers.size === 2) {
+      dragging = false;
+      const pts = Array.from(activePointers.values());
+      initialPinchDistance = getDistance(pts[0], pts[1]);
+      initialPinchScale = manualScale;
+    }
   });
+
   stage.addEventListener('pointermove', (event) => {
+    if (!activePointers.has(event.pointerId)) return;
+    activePointers.set(event.pointerId, { clientX: event.clientX, clientY: event.clientY });
+
+    if (activePointers.size === 2 && initialPinchDistance > 0) {
+      const pts = Array.from(activePointers.values());
+      const currentDist = getDistance(pts[0], pts[1]);
+      const nextScale = Math.min(2.4, Math.max(1, initialPinchScale * (currentDist / initialPinchDistance)));
+      manualScale = nextScale;
+      if (manualScale === 1) panX = panY = 0;
+      applyManualTransform();
+      return;
+    }
+
     if (!dragging) return;
-    // pan limit scales with zoom: centered expansion + the stage's 6% inset bleed
     const limX = mapRect.width * (manualScale - 1) / 2 + mapRect.width * .06;
     const limY = mapRect.height * (manualScale - 1) / 2 + mapRect.height * .06;
     panX = Math.max(-limX, Math.min(limX, event.clientX - startX));
     panY = Math.max(-limY, Math.min(limY, event.clientY - startY));
     gsap.set(stage, { x: panX, y: panY });
   });
-  const endDrag = () => { dragging = false; };
-  stage.addEventListener('pointerup', endDrag);
-  stage.addEventListener('pointercancel', endDrag);
+
+  const endPointer = (event: PointerEvent) => {
+    activePointers.delete(event.pointerId);
+    if (activePointers.size === 1) {
+      const remaining = Array.from(activePointers.values())[0];
+      dragging = true;
+      startX = remaining.clientX - panX;
+      startY = remaining.clientY - panY;
+    } else if (activePointers.size === 0) {
+      dragging = false;
+      initialPinchDistance = 0;
+    }
+  };
+  stage.addEventListener('pointerup', endPointer);
+  stage.addEventListener('pointercancel', endPointer);
 
   if (reduceMotion) {
     map.classList.add('is-map-active');
@@ -306,6 +368,8 @@ const setupAmenityMasterplan = () => {
 
   let zoom = 1;
   let selectedId = '';
+  let autoCloseTimer: ReturnType<typeof setTimeout> | null = null;
+
   // Track which groups were opened explicitly by user clicking accordion summary
   const userOpenedGroups = new Set<HTMLElement>();
   groups.forEach((group) => {
@@ -341,6 +405,22 @@ const setupAmenityMasterplan = () => {
     summary?.setAttribute('aria-expanded', open ? 'true' : 'false');
   };
 
+  const clearAutoClose = () => {
+    if (autoCloseTimer) {
+      clearTimeout(autoCloseTimer);
+      autoCloseTimer = null;
+    }
+  };
+
+  const startAutoClose = () => {
+    clearAutoClose();
+    autoCloseTimer = setTimeout(() => {
+      selectedId = '';
+      setActive('', false);
+      restoreSelection();
+    }, 3000);
+  };
+
   const setActive = (id: string, isPreview = false) => {
     pins.forEach((pin) => pin.classList.toggle('is-active', pin.dataset.amenityPin === id));
     focusButtons.forEach((button) => {
@@ -374,7 +454,10 @@ const setupAmenityMasterplan = () => {
     }
   };
 
-  const preview = (id: string) => setActive(id, true);
+  const preview = (id: string) => {
+    clearAutoClose();
+    setActive(id, true);
+  };
 
   const restoreSelection = () => {
     if (tempOpenedGroup && !userOpenedGroups.has(tempOpenedGroup)) {
@@ -382,6 +465,19 @@ const setupAmenityMasterplan = () => {
       tempOpenedGroup = null;
     }
     setActive(selectedId, false);
+  };
+
+  const handleInteraction = (id: string) => {
+    clearAutoClose();
+    if (selectedId === id) {
+      // Toggle close
+      selectedId = '';
+      setActive('', false);
+    } else {
+      selectedId = id;
+      setActive(id, false);
+      startAutoClose();
+    }
   };
 
   const applyZoom = () => {
@@ -394,24 +490,34 @@ const setupAmenityMasterplan = () => {
 
   pins.forEach((pin) => {
     const id = pin.dataset.amenityPin || '';
-    pin.addEventListener('pointerenter', () => preview(id));
-    pin.addEventListener('mouseenter', () => preview(id));
+    pin.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') preview(id);
+    });
     pin.addEventListener('focus', () => preview(id));
-    pin.addEventListener('pointerleave', restoreSelection);
-    pin.addEventListener('mouseleave', restoreSelection);
+    pin.addEventListener('pointerleave', (e) => {
+      if (e.pointerType === 'mouse') restoreSelection();
+    });
     pin.addEventListener('blur', restoreSelection);
-    pin.addEventListener('click', () => { selectedId = id; setActive(id, false); });
+    pin.addEventListener('click', (e) => {
+      e.stopPropagation();
+      handleInteraction(id);
+    });
   });
 
   focusButtons.forEach((button) => {
     const id = button.dataset.amenityFocus || '';
-    button.addEventListener('pointerenter', () => preview(id));
-    button.addEventListener('mouseenter', () => preview(id));
+    button.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') preview(id);
+    });
     button.addEventListener('focus', () => preview(id));
-    button.addEventListener('pointerleave', restoreSelection);
-    button.addEventListener('mouseleave', restoreSelection);
+    button.addEventListener('pointerleave', (e) => {
+      if (e.pointerType === 'mouse') restoreSelection();
+    });
     button.addEventListener('blur', restoreSelection);
-    button.addEventListener('click', () => { selectedId = id; setActive(id, false); });
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      handleInteraction(id);
+    });
   });
 
   if (reduceMotion) return;

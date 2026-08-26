@@ -15,6 +15,9 @@ import routesSvg from '../assets/pdf-page7-routes.svg?raw';
         <img data-map-image src="/images/location/pdf-page7-basemap-clean.webp" alt="Bản đồ vệ tinh khu vực dự án Xuân Mai Gateway trích từ hồ sơ StudioMilou" loading="eager" />
         <div class="map-wash" aria-hidden="true"></div>
         <div class="map-overlay-shell" data-map-overlay set:html={routesSvg}></div>
+        <svg class="map-radius-ring" viewBox="0 0 1190.55 710" preserveAspectRatio="none" aria-hidden="true">
+          <circle data-map-radius-ring cx="539.72" cy="440.16" r="381" />
+        </svg>
         <svg class="map-route-flow" viewBox="0 0 1190.55 710" preserveAspectRatio="none" aria-hidden="true">
           <path data-map-route-flow d="M166 698 C300 610 430 505 520 390 C650 235 820 145 1014 75" />
           <path data-map-route-flow d="M112 699 C245 520 390 350 505 205 L513 21" />
@@ -36,8 +39,9 @@ import routesSvg from '../assets/pdf-page7-routes.svg?raw';
     </div>
 
     <div class="map-controls" aria-label="Điều khiển bản đồ">
-      <button type="button" data-map-zoom-in aria-label="Phóng to bản đồ">+</button>
       <button type="button" data-map-zoom-out aria-label="Thu nhỏ bản đồ">−</button>
+      <span class="map-zoom-level" data-map-zoom-level>100%</span>
+      <button type="button" data-map-zoom-in aria-label="Phóng to bản đồ">+</button>
       <a href="https://www.google.com/maps/search/?api=1&query=161+Nguyen+Chi+Thanh+Tan+An+Dak+Lak+630000" target="_blank" rel="noreferrer">Google Map <span aria-hidden="true">↗</span></a>
     </div>
   </div>
@@ -67,6 +71,8 @@ import routesSvg from '../assets/pdf-page7-routes.svg?raw';
   .map-project-pin{object-fit:contain!important;right:auto!important;bottom:auto!important;width:34px!important;height:34px!important}
   .map-wash{position:absolute;inset:0;background:linear-gradient(90deg,rgba(239,230,217,.12),transparent 42%),linear-gradient(180deg,rgba(255,251,244,.08),rgba(111,124,104,.03));pointer-events:none}
   .map-overlay-shell,.map-overlay-shell :global(svg){position:absolute;z-index:2;inset:0;width:100%;height:100%;pointer-events:none}.map-overlay-shell{mix-blend-mode:normal}.map-overlay-shell :global(.pdf-radius-path){opacity:0}.map-overlay-shell :global(.pdf-route){opacity:0}.map-overlay-shell :global([data-pdf-site="true"]){opacity:0}
+  .map-radius-ring{position:absolute;z-index:3;inset:0;width:100%;height:100%;pointer-events:none}
+  .map-radius-ring circle{fill:none;stroke:#f2ce92;stroke-width:2;stroke-dasharray:4 6;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 2px rgba(40,22,15,.72));opacity:0}
   .map-route-flow{position:absolute;z-index:3;inset:0;width:100%;height:100%;pointer-events:none}.map-route-flow path{fill:none;stroke:#ffd0a4;stroke-width:3;stroke-linecap:round;stroke-dasharray:4 18;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 5px rgba(215,91,45,.9));opacity:0}
   .map-project-pin{position:absolute;left:43.2%!important;top:50.45%!important;right:auto!important;bottom:auto!important;z-index:5;width:34px!important;height:34px!important;transform:translate(-50%,-100%);filter:brightness(0) invert(1) drop-shadow(0 3px 7px rgba(35,22,17,.72)) drop-shadow(0 0 6px rgba(255,248,238,.45));opacity:0;object-fit:contain!important}
   .map-pin-pulse{position:absolute;left:43.2%!important;top:50.45%!important;right:auto!important;bottom:auto!important;z-index:4;width:26px;height:26px;border:2px solid rgba(255,248,238,.95);border-radius:50%;transform:translate(-50%,-50%);opacity:0;pointer-events:none;box-shadow:0 0 14px rgba(255,220,180,.8)}
@@ -91,12 +97,14 @@ import routesSvg from '../assets/pdf-page7-routes.svg?raw';
   .marker-project b{color:#fff8ee;background:#783622}.marker-project small{color:#f2dccd;background:#783622}
   .marker-center{left:18%;top:69%}.marker-lake{left:62%;top:39%}.marker-airport{left:71%;top:23%}
   .map-signature{position:absolute;right:7%;bottom:8%;display:grid;justify-items:end;color:#2d1b13}.map-signature small{padding:4px 7px;background:rgba(255,250,242,.72);font-size:10px;letter-spacing:.12em}
-  .map-controls{position:absolute;z-index:5;right:22px;top:22px;display:grid;grid-template-columns:46px 46px auto;background:rgba(255,250,242,.92);border:1px solid rgba(45,27,19,.18);backdrop-filter:blur(12px)}
-  .map-controls button,.map-controls a{display:grid;place-items:center;min-height:44px;border:0;border-right:1px solid rgba(45,27,19,.15);background:transparent;color:#2d1b13;font-family:var(--font-label);cursor:pointer;transition:background .25s ease,color .25s ease}
-  .map-controls button{font-size:21px}.map-controls a{grid-auto-flow:column;gap:14px;padding:0 17px;border-right:0;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}.map-controls button:hover,.map-controls a:hover{background:#2d1b13;color:#fff8ee}
+  .map-controls{position:absolute;z-index:5;right:22px;top:22px;display:grid;grid-template-columns:46px 54px 46px auto;background:rgba(255,250,242,.92);border:1px solid rgba(45,27,19,.18);backdrop-filter:blur(12px)}
+  .map-controls button,.map-controls a,.map-controls span{display:grid;place-items:center;min-height:44px;border:0;border-right:1px solid rgba(45,27,19,.15);background:transparent;color:#2d1b13;font-family:var(--font-label);transition:background .25s ease,color .25s ease}
+  .map-controls button{font-size:21px;cursor:pointer}
+  .map-controls span{font-size:11px;font-weight:600;letter-spacing:.06em;color:#8a5a3b;padding:0 4px;user-select:none}
+  .map-controls a{grid-auto-flow:column;gap:14px;padding:0 17px;border-right:0;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}.map-controls button:hover,.map-controls a:hover{background:#2d1b13;color:#fff8ee}
   .map-attribution{position:absolute;z-index:5;right:22px;bottom:18px;margin:0;padding:3px 7px;background:rgba(255,250,242,.82);color:#75675d;font-size:10px}
   @keyframes mapPulse{0%{opacity:.75;transform:scale(.7)}70%,100%{opacity:0;transform:scale(1.7)}}
   @media(max-width:1000px){.location-story{grid-template-columns:1fr;min-height:0}.location-copy{padding:58px 28px 42px}.location-map{min-height:560px}.location-times{display:grid;grid-template-columns:1fr 1fr}.location-marker small{display:none}.map-controls{right:14px;top:14px}}
-  @media(max-width:520px){.location-copy{padding:48px 18px 34px}.location-copy h2{margin:8px 0 15px;font-size:29px}.location-copy br{display:none}.location-copy .chapter-lead{font-size:15px;line-height:1.68}.arrow-link{min-height:48px;margin-top:18px}.location-map{min-height:0;height:52svh;max-height:440px;touch-action:pan-y}.map-stage{inset:-4%}.map-project-pin{width:28px;height:28px}.map-keypoint{font-size:10px;padding:3px 5px}.point-an-phu{left:58%;top:28%}.point-ecocity{left:56%;top:42%}.point-dongdieu{left:54%;top:65%}.point-hahuytap{left:14%;top:57%}.point-ql14{left:40%;top:71%}.point-nguyenchithanh{left:70%;top:30%}.point-radius{left:76%;top:47%}.map-controls{grid-template-columns:44px 44px;right:10px;top:10px}.map-controls button{min-height:44px}.map-controls a{grid-column:1/3;border-top:1px solid rgba(45,27,19,.15);min-height:44px}.location-times{grid-template-columns:1fr;padding:0 18px 25px}.location-times>div{grid-template-columns:70px 1fr;padding:18px 0}.location-times strong{font-size:20px}}
+  @media(max-width:520px){.location-copy{padding:48px 18px 34px}.location-copy h2{margin:8px 0 15px;font-size:29px}.location-copy br{display:none}.location-copy .chapter-lead{font-size:15px;line-height:1.68}.arrow-link{min-height:48px;margin-top:18px}.location-map{min-height:0;height:52svh;max-height:440px;touch-action:pan-y}.map-stage{inset:-4%}.map-project-pin{width:28px;height:28px}.map-keypoint{font-size:10px;padding:3px 5px}.point-an-phu{left:58%;top:28%}.point-ecocity{left:56%;top:42%}.point-dongdieu{left:54%;top:65%}.point-hahuytap{left:14%;top:57%}.point-ql14{left:40%;top:71%}.point-nguyenchithanh{left:70%;top:30%}.point-radius{left:76%;top:47%}.map-controls{grid-template-columns:42px 48px 42px;right:10px;top:10px}.map-controls button{min-height:44px}.map-controls a{grid-column:1/4;border-top:1px solid rgba(45,27,19,.15);min-height:44px}.location-times{grid-template-columns:1fr;padding:0 18px 25px}.location-times>div{grid-template-columns:70px 1fr;padding:18px 0}.location-times strong{font-size:20px}}
   @media(prefers-reduced-motion:reduce){.location-marker i::before,.location-marker i::after{animation:none}}
 </style>
