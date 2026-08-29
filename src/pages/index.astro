@@ -13,6 +13,11 @@ import {
   projectProfile,
   residenceUnits,
 } from '../data/narrative';
+import { project } from '../data/project';
+
+const hotlineDisplay = project.hotline;
+const hotlineTel = project.hotline.replace(/\s+/g, '');
+const zaloHref = `https://zalo.me/${hotlineTel}`;
 
 const manifesto = [
   { index: '01', href: '#overview', text: 'Cửa ngõ đô thị trên trục Nguyễn Chí Thanh' },
@@ -23,7 +28,7 @@ const manifesto = [
   { index: '06', href: '#inquiry', text: 'Điểm gặp mới của cộng đồng Buôn Ma Thuột' },
 ];
 ---
-<MainLayout title="Xuân Mai BMT Gateway - Cửa ngõ đô thị mới giữa cao nguyên">
+<MainLayout title="EraCity - Cửa ngõ đô thị mới giữa cao nguyên">
   <Header />
   <script>
     import '../scripts/sohoMotion';
@@ -33,12 +38,12 @@ const manifesto = [
     <section class="v2-hero" data-hero-motion>
       <picture class="v2-hero-media">
         <source media="(max-width: 700px)" srcset="/images/new-media/hero-pool.webp" />
-        <img data-hero-image src="/images/new-media/overview-aerial.webp" alt="Phối cảnh tổng thể Xuân Mai BMT Gateway" fetchpriority="high" />
+        <img data-hero-image src="/images/new-media/overview-aerial.webp" alt="Phối cảnh tổng thể EraCity" fetchpriority="high" />
       </picture>
       <div class="v2-hero-shade" aria-hidden="true"></div>
       <div class="v2-hero-lock">
         <div class="v2-hero-left"><h1 data-hero-line>BẢN SẮC<br />CAO NGUYÊN</h1></div>
-        <div class="v2-hero-project" data-hero-copy><strong>BMT</strong><span>Gateway</span></div>
+        <div class="v2-hero-project" data-hero-copy><strong>Era</strong><span>City</span></div>
         <div class="v2-hero-right"><p data-hero-line>NHỊP SỐNG<br />ĐÔ THỊ MỚI</p></div>
         <a class="v2-hero-cta" href="#inquiry" data-hero-copy>Nhận thông tin dự án</a>
       </div>
@@ -61,7 +66,7 @@ const manifesto = [
     </section>
 
     <section id="overview" class="v2-overview" data-chapter>
-      <img src="/images/pdf-source/landscape-pool.webp" alt="Phối cảnh 3D bể bơi và cảnh quan nội khu BMT Gateway" loading="eager" />
+      <img src="/images/pdf-source/landscape-pool.webp" alt="Phối cảnh 3D bể bơi và cảnh quan nội khu EraCity" loading="eager" />
       <div class="v2-overview-shade" aria-hidden="true"></div>
       <article class="v2-overview-panel">
         <p class="v2-editorial">Tổng quan dự án</p>
@@ -80,16 +85,16 @@ const manifesto = [
     <section class="v2-identity" data-chapter>
       <article class="v2-identity-copy">
         <p class="v2-editorial">Biểu tượng của một nhịp sống mới</p>
-        <h2>GATEWAY GIỮA THÀNH PHỐ CAO NGUYÊN</h2>
+        <h2>CỬA NGÕ GIỮA THÀNH PHỐ CAO NGUYÊN</h2>
         <p>Tại cửa ngõ phía Bắc Buôn Ma Thuột, dự án đón những dòng chuyển động từ trung tâm, sân bay và Quốc lộ 14. Kiến trúc hiện đại được đặt trong nền cảnh quan nhiệt đới, tạo nên một địa chỉ sống vừa kết nối vừa có khoảng lùi riêng.</p>
-        <div class="v2-identity-mark" aria-hidden="true">BMT</div>
+        <div class="v2-identity-mark" aria-hidden="true">ERA</div>
       </article>
-      <figure class="v2-identity-media" data-media-reveal><img src="/images/new-media/dusk-facade.webp" alt="Phối cảnh mặt đứng kiến trúc BMT Gateway" loading="eager" /></figure>
+      <figure class="v2-identity-media" data-media-reveal><img src="/images/new-media/dusk-facade.webp" alt="Phối cảnh mặt đứng kiến trúc EraCity" loading="eager" /></figure>
     </section>
 
     <LocationStory />
 
-    <section class="cinematic-video" data-cinematic-video aria-label="Phim giới thiệu BMT Gateway">
+    <section class="cinematic-video" data-cinematic-video aria-label="Phim giới thiệu EraCity">
       <div class="cinematic-stage" data-cinematic-stage>
         <div class="cinematic-curtain cinematic-curtain-top" data-cinematic-curtain-top aria-hidden="true"></div>
         <div class="cinematic-frame" data-cinematic-frame>
@@ -102,19 +107,19 @@ const manifesto = [
             loop
             playsinline
             preload="metadata"
-            aria-label="Phim phối cảnh kiến trúc và không gian sống BMT Gateway"
+            aria-label="Phim phối cảnh kiến trúc và không gian sống EraCity"
           ></video>
           <div class="cinematic-vignette" aria-hidden="true"></div>
           <div class="cinematic-overlay" data-cinematic-overlay aria-hidden="true">
             <div class="cinematic-overlay-wordmark">
               <span class="cinematic-overlay-kicker">Cửa ngõ cao nguyên</span>
-              <strong>BMT</strong>
-              <span class="cinematic-overlay-sub">Gateway</span>
+              <strong>Era</strong>
+              <span class="cinematic-overlay-sub">City</span>
             </div>
             <div class="cinematic-overlay-rule"></div>
             <p>Kiến trúc trong chuyển động</p>
           </div>
-          <p class="cinematic-caption">BMT Gateway <span>Kiến trúc trong chuyển động</span></p>
+          <p class="cinematic-caption">EraCity <span>Kiến trúc trong chuyển động</span></p>
         </div>
         <div class="cinematic-curtain cinematic-curtain-bottom" data-cinematic-curtain-bottom aria-hidden="true"></div>
       </div>
@@ -122,7 +127,7 @@ const manifesto = [
 
     <AmenityMasterplan />
     <section id="amenities" class="v2-amenities" data-chapter>
-      <img src="/images/new-media/hero-pool.webp" alt="Phối cảnh cảnh quan và tiện ích BMT Gateway" loading="eager" />
+      <img src="/images/new-media/hero-pool.webp" alt="Phối cảnh cảnh quan và tiện ích EraCity" loading="eager" />
       <div class="v2-amenities-shade" aria-hidden="true"></div>
       <div class="v2-amenities-title">
         <p class="v2-editorial">Hệ cảnh quan đa lớp</p>
@@ -141,7 +146,7 @@ const manifesto = [
       <header class="v2-collection-head residence-heading">
         <p class="v2-editorial">01 / Residence Collection</p>
         <h2>MẶT BẰNG CĂN HỘ</h2>
-        <p>Khám phá cách tổ chức không gian, diện tích và công năng của từng loại căn hộ tại BMT Gateway.</p>
+        <p>Khám phá cách tổ chức không gian, diện tích và công năng của từng loại căn hộ tại EraCity.</p>
       </header>
       <ResidenceCollection units={residenceUnits} client:load />
     </section>
@@ -166,9 +171,30 @@ const manifesto = [
     </section>
   </main>
 
+  <div class="floating-cta" role="complementary" aria-label="Liên hệ nhanh">
+    <a class="floating-cta-btn" href={`tel:${hotlineTel}`} aria-label={`Gọi hotline tư vấn ${hotlineDisplay}`}>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.6 2Z"/></svg>
+      <span>Hotline</span>
+    </a>
+    <a class="floating-cta-btn floating-cta-zalo" href={zaloHref} target="_blank" rel="noreferrer" aria-label={`Chat Zalo tư vấn ${hotlineDisplay}`}>
+      <img src="/images/zalo-logo7.webp" alt="Zalo" width="24" height="24" style="object-fit:contain;width:24px;height:24px" />
+      <span>Zalo</span>
+    </a>
+  </div>
+
   <footer class="footer-soho v2-footer">
-    <div class="footer-brand"><strong>BMT</strong><span>Gateway</span></div>
-    <p>Đường Nguyễn Chí Thanh, P. Tân An, TP. Buôn Ma Thuột</p>
-    <p>Thông tin và phối cảnh mang tính tham khảo theo hồ sơ thiết kế. Chi tiết chính thức căn cứ tài liệu được chủ đầu tư phê duyệt.</p>
+    <div class="footer-brand"><strong>Era</strong><span>City</span></div>
+    <div class="footer-contact">
+      <p class="footer-contact-title">Liên hệ dự án</p>
+      <p>{project.location}</p>
+      <p>Chủ đầu tư: {project.developer}</p>
+      <p>Hotline: <a href={`tel:${hotlineTel}`}>{hotlineDisplay}</a></p>
+      <p>Email: <a href={`mailto:${project.email}`}>{project.email}</a></p>
+      <p>Zalo tư vấn: <a href={zaloHref} target="_blank" rel="noreferrer">{hotlineDisplay}</a></p>
+    </div>
+    <div class="footer-cta">
+      <a class="btn btn-ghost footer-register" href="#inquiry">Đăng ký nhận tin</a>
+      <p class="footer-note">Thông tin và phối cảnh mang tính tham khảo theo hồ sơ thiết kế. Chi tiết chính thức căn cứ tài liệu được chủ đầu tư phê duyệt.</p>
+    </div>
   </footer>
 </MainLayout>

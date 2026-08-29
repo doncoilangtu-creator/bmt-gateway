@@ -1,7 +1,7 @@
 export const project = {
-  name: 'Xuân Mai BMT Gateway',
-  shortName: 'BMT Gateway',
-  kicker: 'Xuân Mai BMT Gateway / Buôn Ma Thuột',
+  name: 'EraCity',
+  shortName: 'EraCity',
+  kicker: 'EraCity / Buôn Ma Thuột',
   title: 'Cửa ngõ sống xanh phía Đông Bắc Buôn Ma Thuột',
   subtitle:
     'Tổ hợp căn hộ, townhouse, shophouse và nhà ở xã hội do Xuân Mai Corporation phát triển trên khu đất 4,86 ha tại trục Nguyễn Chí Thanh, phường Tân An.',

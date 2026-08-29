@@ -44,7 +44,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     const submittedAt = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
     const text = [
-      'Lead moi tu BMT Gateway',
+      'Lead moi tu EraCity',
       '',
       `Ho ten: ${lead.name}`,
       `Số điện thoại: ${lead.phone}`,
@@ -55,9 +55,9 @@ export const POST: APIRoute = async ({ request }) => {
     ].join('\n');
 
     await transporter.sendMail({
-      from: `BMT Gateway <${user}>`,
+      from: `EraCity <${user}>`,
       to,
-      subject: `Lead moi BMT Gateway - ${lead.phone}`,
+      subject: `Lead moi EraCity - ${lead.phone}`,
       text,
       replyTo: user,
     });

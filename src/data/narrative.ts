@@ -111,7 +111,7 @@ export const lowriseProducts: LowriseProduct[] = [
 ];
 
 export const projectProfile: DetailItem[] = [
-  { label: 'Tên thương mại', value: 'Xuân Mai BMT Gateway' },
+  { label: 'Tên thương mại', value: 'EraCity' },
   { label: 'Vị trí', value: '161 Nguyễn Chí Thanh, P. Tân An, TP. Buôn Ma Thuột, Đắk Lắk' },
   { label: 'Chủ đầu tư', value: 'Xuân Mai Corporation' },
   { label: 'Tư vấn thiết kế', value: 'studioMilou' },
@@ -206,7 +206,7 @@ export const residenceUnits: ResidenceUnit[] = [
 ];
 
 export const locationMarkers: LocationMarker[] = [
-  { label: 'Xuân Mai Gateway', detail: '161 Nguyễn Chí Thanh · Tân An', className: 'marker-project' },
+  { label: 'EraCity', detail: '161 Nguyễn Chí Thanh · Tân An', className: 'marker-project' },
 ];
 
 export const urbanCaptions = [
