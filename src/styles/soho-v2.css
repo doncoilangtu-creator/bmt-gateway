@@ -110,6 +110,8 @@
 .v2-slide-thumb button:hover{background:var(--v2-copper);color:#fff8ef}
 .v2-img-edit-btn{position:absolute;z-index:30;top:12px;right:12px;min-height:32px;padding:0 12px;border:0;border-radius:4px;background:rgba(45,27,19,.92);color:#f4ebdd;font:600 10px/1 var(--font-label);letter-spacing:.1em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.3)}
 .v2-img-edit-btn:hover{background:var(--v2-copper)}
+.v2-img-edit-btn.is-hero{top:84px;right:20px;z-index:55;min-height:28px;padding:0 10px;font-size:9px}
+.v2-img-edit-btn.is-poster{top:auto;bottom:16px;right:16px;z-index:30;min-height:28px;padding:0 10px;font-size:9px}
 .v2-img-modal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:rgba(21,16,13,.55);backdrop-filter:blur(3px)}
 .v2-img-modal-box{width:min(420px,92vw);display:grid;gap:12px;padding:20px;background:var(--v2-paper);border:1px solid var(--v2-line);border-radius:10px;color:var(--v2-coffee)}
 .v2-img-modal-box p{margin:0;font:500 12px/1.5 var(--font-body)}

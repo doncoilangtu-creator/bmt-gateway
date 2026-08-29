@@ -38,7 +38,7 @@ const manifesto = [
     <section class="v2-hero" data-hero-motion>
       <picture class="v2-hero-media">
         <source media="(max-width: 700px)" srcset="/images/new-media/hero-pool.webp" />
-        <img data-hero-image src="/images/new-media/overview-aerial.webp" alt="Phối cảnh tổng thể EraCity" fetchpriority="high" />
+        <img data-hero-image src="/images/new-media/overview-aerial.webp" alt="Phối cảnh tổng thể EraCity" fetchpriority="high" data-editable-img="hero" />
       </picture>
       <div class="v2-hero-shade" aria-hidden="true"></div>
       <div class="v2-hero-lock">
@@ -100,6 +100,7 @@ const manifesto = [
         <div class="cinematic-frame" data-cinematic-frame>
           <video
             data-cinematic-media
+            data-editable-img="poster"
             src="/videos/bmt-gateway-0616-hero.mp4"
             poster="/images/new-media/overview-aerial.webp"
             autoplay
@@ -360,9 +361,38 @@ const manifesto = [
       // ——— Đổi ảnh trên trang: áp dụng ảnh đã lưu (chạy cả chế độ thường) ———
       const editableImgs = Array.from(document.querySelectorAll('[data-editable-img]'));
       const readImages = () => { try { return JSON.parse(localStorage.getItem(LS_IMAGES) || '{}'); } catch (e) { return {}; } };
-      editableImgs.forEach(img => {
-        const s = readImages()[img.dataset.editableImg];
-        if (s && s.src) { img.src = s.src; if (s.alt) img.alt = s.alt; }
+      
+      const applySiteImage = (key, data) => {
+        if (!data || !data.src) return;
+        const el = document.querySelector(`[data-editable-img="${key}"]`);
+        if (!el) return;
+        if (key === 'hero') {
+          if (el instanceof HTMLImageElement) el.src = data.src;
+          if (data.alt && el instanceof HTMLImageElement) el.alt = data.alt;
+          const pic = el.closest('picture');
+          if (pic) {
+            pic.querySelectorAll('source').forEach(srcEl => {
+              srcEl.srcset = data.src;
+            });
+          }
+        } else if (key === 'poster') {
+          if (el instanceof HTMLVideoElement) {
+            el.poster = data.src;
+          }
+        } else {
+          if (el instanceof HTMLImageElement) {
+            el.src = data.src;
+            if (data.alt) el.alt = data.alt;
+          }
+        }
+      };
+
+      const currentSavedImages = readImages();
+      editableImgs.forEach(el => {
+        const key = el.dataset.editableImg;
+        if (key && currentSavedImages[key]) {
+          applySiteImage(key, currentSavedImages[key]);
+        }
       });
 
       if (!isEdit) return;
@@ -474,16 +504,28 @@ const manifesto = [
       });
 
       // Nút [Đổi ảnh] trên từng ảnh data-editable-img
-      editableImgs.forEach(img => {
+      editableImgs.forEach(el => {
+        const key = el.dataset.editableImg;
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'v2-img-edit-btn';
-        btn.textContent = 'Đổi ảnh';
-        (img.parentElement || figure).appendChild(btn);
+        btn.className = 'v2-img-edit-btn' + (key === 'hero' ? ' is-hero' : key === 'poster' ? ' is-poster' : '');
+        btn.textContent = key === 'poster' ? 'Đổi poster' : 'Đổi ảnh';
+        const targetParent = key === 'hero' 
+          ? (document.querySelector('.v2-hero') || el.parentElement || figure) 
+          : key === 'poster' 
+            ? (el.closest('.cinematic-frame') || el.parentElement || figure)
+            : (el.parentElement || figure);
+        targetParent.appendChild(btn);
         btn.addEventListener('click', () => openPicker(({ src, alt }) => {
-          img.src = src;
           const cur = readImages();
-          cur[img.dataset.editableImg] = { src, alt: alt || img.alt };
+          if (key === 'poster') {
+            cur[key] = { src };
+            applySiteImage(key, cur[key]);
+          } else {
+            const currentAlt = (el instanceof HTMLImageElement ? el.alt : '') || alt;
+            cur[key] = { src, alt: alt || currentAlt };
+            applySiteImage(key, cur[key]);
+          }
           localStorage.setItem(LS_IMAGES, JSON.stringify(cur));
         }));
       });
