@@ -286,6 +286,20 @@ const manifesto = [
         modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
       };
 
+      // Copy text vào clipboard (fallback execCommand cho http)
+      const copyText = async (text) => {
+        try { await navigator.clipboard.writeText(text); return true; } catch (e) {}
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) {}
+        ta.remove();
+        return ok;
+      };
+
       // ——— Chế độ xem: ảnh tĩnh (1 slide) hoặc carousel crossfade (≥2 slide) ———
       let timer = null;
       let active = 0;
@@ -357,6 +371,82 @@ const manifesto = [
         startAuto();
       };
       renderView();
+
+      // ——— Amenities: ảnh nền chạy slide (localStorage bmt_amenities_slides) ———
+      const LS_AMEN = 'bmt_amenities_slides';
+      const DEFAULT_AM_SLIDES = [{ src: '/images/new-media/hero-pool.webp', alt: 'Phối cảnh cảnh quan và tiện ích EraCity' }];
+      const amSection = document.querySelector('.v2-amenities');
+      const readAmSlides = () => {
+        try {
+          const s = JSON.parse(localStorage.getItem(LS_AMEN) || 'null');
+          if (Array.isArray(s) && s.length && s.every(x => x && typeof x.src === 'string' && x.src)) return s;
+        } catch (e) {}
+        return DEFAULT_AM_SLIDES.map(x => ({ ...x }));
+      };
+      let amSlides = readAmSlides();
+      let amTimer = null;
+      let amActive = 0;
+      const amStop = () => { if (amTimer) { clearInterval(amTimer); amTimer = null; } };
+      const amStart = () => {
+        amStop();
+        if (isEdit || amSlides.length < 2) return;
+        amTimer = setInterval(() => { if (!document.hidden) amSet(amActive + 1); }, 4500);
+      };
+      const amSet = (i) => {
+        const imgs = amSection.querySelectorAll('.am-stage img');
+        if (!imgs.length) return;
+        amActive = ((i % imgs.length) + imgs.length) % imgs.length;
+        imgs.forEach((im, k) => im.classList.toggle('is-active', k === amActive));
+        amSection.querySelectorAll('.am-dots button').forEach((d, k) => d.classList.toggle('is-active', k === amActive));
+      };
+      const amRenderView = () => {
+        if (!amSection) return;
+        amStop();
+        amSection.querySelectorAll('.am-stage,.am-dots').forEach(el => el.remove());
+        let baseImg = amSection.querySelector(':scope > img');
+        if (amSlides.length < 2) {
+          if (!baseImg) {
+            baseImg = document.createElement('img');
+            baseImg.loading = 'eager';
+            baseImg.setAttribute('data-editable-img', 'pool');
+            amSection.insertBefore(baseImg, amSection.firstChild);
+          }
+          baseImg.src = amSlides[0].src;
+          baseImg.alt = amSlides[0].alt || DEFAULT_AM_SLIDES[0].alt;
+          return;
+        }
+        if (baseImg) baseImg.remove();
+        const stage = document.createElement('div');
+        stage.className = 'am-stage';
+        amSlides.forEach((s, i) => {
+          const im = document.createElement('img');
+          im.src = s.src;
+          im.alt = s.alt || `Phối cảnh tiện ích ${i + 1} - EraCity`;
+          im.loading = i === 0 ? 'eager' : 'lazy';
+          if (i === amActive) im.classList.add('is-active');
+          stage.appendChild(im);
+        });
+        amSection.insertBefore(stage, amSection.firstChild);
+        const dots = document.createElement('div');
+        dots.className = 'am-dots';
+        amSlides.forEach((s, i) => {
+          const d = document.createElement('button');
+          d.type = 'button';
+          d.setAttribute('aria-label', `Xem ảnh tiện ích ${i + 1}`);
+          if (i === amActive) d.classList.add('is-active');
+          d.addEventListener('click', () => { amSet(i); amStart(); });
+          dots.appendChild(d);
+        });
+        amSection.appendChild(dots);
+        if (!amSection.dataset.amHoverBound) {
+          amSection.dataset.amHoverBound = '1';
+          amSection.addEventListener('mouseenter', amStop);
+          amSection.addEventListener('mouseleave', amStart);
+          document.addEventListener('visibilitychange', () => { document.hidden ? amStop() : amStart(); });
+        }
+        amStart();
+      };
+      amRenderView();
 
       // ——— Đổi ảnh trên trang: áp dụng ảnh đã lưu (chạy cả chế độ thường) ———
       const editableImgs = Array.from(document.querySelectorAll('[data-editable-img]'));
@@ -473,28 +563,12 @@ const manifesto = [
         if (hint) hint.textContent = 'Đã lưu ✓ (bỏ ?edit để xem carousel).';
       });
       toolbar.querySelector('[data-export]').addEventListener('click', async () => {
-        const json = JSON.stringify({ slides, site_images: readImages() }, null, 2);
-        const legacyCopy = () => {
-          const ta = document.createElement('textarea');
-          ta.value = json;
-          ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
-          document.body.appendChild(ta);
-          ta.select();
-          let ok = false;
-          try { ok = document.execCommand('copy'); } catch (e) {}
-          ta.remove();
-          return ok;
-        };
-        try {
-          await navigator.clipboard.writeText(json);
-          if (hint) hint.textContent = 'Đã copy JSON (slides + site_images) — dán vào chat.';
-        } catch (e) {
-          if (legacyCopy()) {
-            if (hint) hint.textContent = 'Đã copy JSON (slides + site_images) — dán vào chat.';
-          } else {
-            if (hint) hint.textContent = 'Copy lỗi — mở console (F12) lấy JSON.';
-            console.log('[bmt export]', json);
-          }
+        const json = JSON.stringify({ slides_identity: slides, site_images: readImages(), amenities_slides: readAmSlides() }, null, 2);
+        if (await copyText(json)) {
+          if (hint) hint.textContent = 'Đã copy JSON (slides_identity + site_images + amenities_slides) — dán vào chat.';
+        } else {
+          if (hint) hint.textContent = 'Copy lỗi — mở console (F12) lấy JSON.';
+          console.log('[bmt export]', json);
         }
       });
       toolbar.querySelector('[data-reset]').addEventListener('click', () => {
@@ -502,6 +576,94 @@ const manifesto = [
         localStorage.removeItem(LS_IMAGES);
         location.reload();
       });
+
+      // ——— Edit mode: slide ảnh nền khu amenities ———
+      if (amSection) {
+        const amToolbar = document.createElement('div');
+        amToolbar.className = 'v2-edit-toolbar';
+        amToolbar.innerHTML = `
+          <span class="v2-edit-tag">✦ ẢNH NỀN TIỆN ÍCH</span>
+          <button type="button" data-add>+ Thêm ảnh</button>
+          <button type="button" data-save>💾 Lưu</button>
+          <button type="button" data-export>📋 Xuất JSON</button>
+          <button type="button" data-reset>↺ Reset</button>
+          <span class="v2-edit-hint" data-hint>Thêm/đổi/xóa slide, kéo thả đổi thứ tự → Lưu.</span>`;
+        amSection.appendChild(amToolbar);
+        const amHint = amToolbar.querySelector('[data-hint]');
+        const amMarkDirty = () => { if (amHint) amHint.textContent = 'Chưa lưu — bấm 💾 Lưu.'; };
+
+        const amPanel = document.createElement('div');
+        amPanel.className = 'v2-slides-panel';
+        amSection.appendChild(amPanel);
+        const amRenderPanel = () => {
+          amPanel.innerHTML = '';
+          amSlides.forEach((s, i) => {
+            const thumb = document.createElement('div');
+            thumb.className = 'v2-slide-thumb';
+            thumb.draggable = true;
+            const im = document.createElement('img');
+            im.src = s.src; im.alt = s.alt || `Slide ${i + 1}`;
+            const actions = document.createElement('div');
+            actions.className = 'thumb-actions';
+            const btnChange = document.createElement('button');
+            btnChange.type = 'button'; btnChange.textContent = 'Đổi';
+            btnChange.addEventListener('click', () => openPicker(({ src, alt }) => {
+              amSlides[i] = { src, alt };
+              amMarkDirty(); amRenderPanel(); amRenderView();
+              if (amHint) amHint.textContent = `Đã đổi slide ${i + 1} — chưa lưu.`;
+            }));
+            const btnDel = document.createElement('button');
+            btnDel.type = 'button'; btnDel.textContent = '×'; btnDel.setAttribute('aria-label', `Xóa slide ${i + 1}`);
+            btnDel.addEventListener('click', () => {
+              amSlides.splice(i, 1);
+              if (!amSlides.length) amSlides = DEFAULT_AM_SLIDES.map(x => ({ ...x }));
+              if (amActive >= amSlides.length) amActive = 0;
+              amMarkDirty(); amRenderPanel(); amRenderView();
+            });
+            actions.append(btnChange, btnDel);
+            thumb.append(im, actions);
+            thumb.addEventListener('dragstart', (e) => {
+              e.dataTransfer.setData('text/plain', String(i));
+              thumb.classList.add('dragging');
+            });
+            thumb.addEventListener('dragend', () => thumb.classList.remove('dragging'));
+            thumb.addEventListener('dragover', (e) => e.preventDefault());
+            thumb.addEventListener('drop', (e) => {
+              e.preventDefault();
+              const from = parseInt(e.dataTransfer.getData('text/plain'), 10);
+              if (Number.isNaN(from) || from === i) return;
+              const [moved] = amSlides.splice(from, 1);
+              amSlides.splice(i, 0, moved);
+              amMarkDirty(); amRenderPanel(); amRenderView();
+            });
+            amPanel.appendChild(thumb);
+          });
+        };
+        amRenderPanel();
+
+        amToolbar.querySelector('[data-add]').addEventListener('click', () => openPicker(({ src, alt }) => {
+          amSlides.push({ src, alt });
+          amMarkDirty(); amRenderPanel(); amRenderView();
+          if (amHint) amHint.textContent = `Đã thêm slide ${amSlides.length} — chưa lưu.`;
+        }));
+        amToolbar.querySelector('[data-save]').addEventListener('click', () => {
+          localStorage.setItem(LS_AMEN, JSON.stringify(amSlides));
+          if (amHint) amHint.textContent = 'Đã lưu ✓ (bỏ ?edit để xem slide chạy).';
+        });
+        amToolbar.querySelector('[data-export]').addEventListener('click', async () => {
+          const json = JSON.stringify({ slides_identity: slides, site_images: readImages(), amenities_slides: amSlides }, null, 2);
+          if (await copyText(json)) {
+            if (amHint) amHint.textContent = 'Đã copy JSON (slides_identity + site_images + amenities_slides) — dán vào chat.';
+          } else {
+            if (amHint) amHint.textContent = 'Copy lỗi — mở console (F12) lấy JSON.';
+            console.log('[bmt export]', json);
+          }
+        });
+        amToolbar.querySelector('[data-reset]').addEventListener('click', () => {
+          localStorage.removeItem(LS_AMEN);
+          location.reload();
+        });
+      }
 
       // Nút [Đổi ảnh] trên từng ảnh data-editable-img
       editableImgs.forEach(el => {
