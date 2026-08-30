@@ -68,7 +68,7 @@ export const products: Product[] = [
     description:
       'Không gian linh hoạt cho người trẻ, chuyên gia hoặc nhà đầu tư tìm kiếm sản phẩm vừa đủ, dễ quản lý và dễ khai thác.',
     highlights: ['Diện tích gọn', 'Logia riêng', 'Phù hợp đầu tư'],
-    planImage: '/images/floor-plans/pdf-detail/plan-1br-plus.png',
+    planImage: '/images/crops/plan-1br-plus-crop.webp',
   },
   {
     id: '2br-b1',
@@ -80,7 +80,7 @@ export const products: Product[] = [
     description:
       'Cấu trúc cân bằng cho gia đình trẻ, tối ưu khu sinh hoạt chung, hai phòng ngủ, bếp và logia.',
     highlights: ['2 phòng ngủ', 'Không gian cân bằng', 'Gia đình trẻ'],
-    planImage: '/images/floor-plans/pdf-detail/plan-2br-b1.png',
+    planImage: '/images/crops/plan-2br-b1-crop.webp',
   },
   {
     id: '2br-b2',
@@ -92,7 +92,7 @@ export const products: Product[] = [
     description:
       'Phương án 2 phòng ngủ tối ưu diện tích sử dụng, phù hợp nhu cầu ở thực, giữ tài sản hoặc cho thuê.',
     highlights: ['2 phòng ngủ', 'Tối ưu diện tích', 'Có logia'],
-    planImage: '/images/floor-plans/pdf-detail/plan-2br-b2.png',
+    planImage: '/images/crops/plan-2br-b2-crop.webp',
   },
   {
     id: '3br',
@@ -104,6 +104,6 @@ export const products: Product[] = [
     description:
       'Không gian rộng hơn cho gia đình nhiều thế hệ, có thêm phòng ngủ, kho và logia lớn.',
     highlights: ['3 phòng ngủ', 'Có kho', 'Diện tích rộng'],
-    planImage: '/images/floor-plans/pdf-detail/plan-3br.png',
+    planImage: '/images/crops/plan-3br-crop.webp',
   },
 ];
