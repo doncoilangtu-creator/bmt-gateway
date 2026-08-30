@@ -215,19 +215,19 @@ const manifesto = [
       let slides = readSlides();
       let dirty = false;
 
-      // Nén ảnh upload: canvas về max 1600px, JPEG q82 → base64
+      // Nén ảnh upload: canvas về max 2400px, JPEG q88 → base64 (đủ nét cho khối full-bleed 1905px+)
       const compressImage = (file) => new Promise((resolve, reject) => {
         const url = URL.createObjectURL(file);
         const img = new Image();
         img.onload = () => {
-          const scale = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight));
+          const scale = Math.min(1, 2400 / Math.max(img.naturalWidth, img.naturalHeight));
           const w = Math.max(1, Math.round(img.naturalWidth * scale));
           const h = Math.max(1, Math.round(img.naturalHeight * scale));
           const c = document.createElement('canvas');
           c.width = w; c.height = h;
           c.getContext('2d').drawImage(img, 0, 0, w, h);
           URL.revokeObjectURL(url);
-          resolve(c.toDataURL('image/jpeg', 0.82));
+          resolve(c.toDataURL('image/jpeg', 0.88));
         };
         img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Không đọc được ảnh')); };
         img.src = url;
@@ -245,7 +245,7 @@ const manifesto = [
         modal.className = 'v2-img-modal';
         modal.innerHTML = `
           <div class="v2-img-modal-box" role="dialog" aria-label="Chọn ảnh">
-            <p>Tải ảnh lên (tự nén ≤1600px, JPEG q82) hoặc dán URL ảnh có sẵn dạng /images/...</p>
+            <p>Tải ảnh lên (tự nén ≤2400px, JPEG q88 — đủ nét full-bleed) hoặc dán URL ảnh có sẵn dạng /images/...</p>
             <div class="v2-img-modal-row"><button type="button" data-upload>📁 Chọn file ảnh</button><span data-file-name></span></div>
             <div class="v2-img-modal-row"><input type="text" data-url value="/images/new-media/overview-aerial.webp" /><button type="button" data-use-url>Dùng URL</button></div>
             <div class="v2-img-modal-row"><button type="button" data-close>Đóng</button></div>
