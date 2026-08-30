@@ -60,7 +60,7 @@
 .amenity-list{max-height:230px;overflow:auto;padding:0 0 15px}
 .amenity-list button{display:grid;grid-template-columns:30px 1fr;gap:10px;width:100%;padding:10px 0;border:0;border-top:1px solid rgba(255,248,239,.1);background:none;color:rgba(255,248,239,.72);text-align:left;cursor:pointer;font:500 11px/1.35 var(--font-body);transition:color .2s,transform .2s}
 .amenity-list button b{color:#e1a487;font:600 10px/1 var(--font-label)}
-.amenity-list button:hover,.amenity-list button.is-active{color:#fff8ef;transform:translateX(5px)}
+.amenity-list button.is-active{color:#fff8ef;transform:translateX(5px)}
 .amenity-list::-webkit-scrollbar{width:3px}
 .amenity-list::-webkit-scrollbar-thumb{background:#c77756}
 @media(max-width:1000px){.amenity-masterplan{grid-template-columns:1fr;min-height:0;padding:58px 28px 64px}.amenity-masterplan-heading{position:relative;left:auto;top:auto;width:min(680px,100%);margin:0 0 34px}.amenity-masterplan-heading h2{font-size:48px}.amenity-masterplan-stage{grid-column:1;min-height:560px;margin:0}.amenity-rail{grid-column:1;margin-top:18px;padding:22px}.amenity-group-summary,.amenity-group summary{padding:18px 0}}

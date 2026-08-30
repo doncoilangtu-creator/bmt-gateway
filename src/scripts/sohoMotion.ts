@@ -193,6 +193,8 @@ const setupMap = () => {
     });
     map.dataset.mapZoom = manualScale.toFixed(2);
     updateZoomDisplay();
+    // Keep map labels readable at any zoom: counter-scale them
+    gsap.to(mapLabels, { scale: manualScale === 1 ? 1 : 1 / manualScale, duration: .55, ease: 'power2.out', overwrite: 'auto', transformOrigin: '50% 50%' });
   };
 
   zoomIn?.addEventListener('click', () => {
@@ -359,7 +361,11 @@ const setupMap = () => {
 const setupAmenityMasterplan = () => {
   const root = document.querySelector<HTMLElement>('[data-amenity-masterplan]');
   if (!root) return;
-  const canvas = root.querySelector<HTMLElement>('[data-amenity-canvas]');
+  const canvases = Array.from(root.querySelectorAll<HTMLElement>('[data-amenity-canvas]'));
+    const canvas = canvases.find((c) => c.offsetWidth > 0) || canvases[0];
+    const mql = window.matchMedia('(max-width:900px)');
+    let lastM = mql.matches;
+    mql.addEventListener('change', (e) => { if (e.matches !== lastM) { lastM = e.matches; window.location.reload(); } });
   const zoomLabel = root.querySelector<HTMLElement>('[data-amenity-zoom]');
   const pins = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-amenity-pin]'));
   const focusButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-amenity-focus]'));
@@ -367,8 +373,9 @@ const setupAmenityMasterplan = () => {
   if (!canvas || !zoomLabel) return;
 
   let zoom = 1;
+  let panX = 0;
+  let panY = 0;
   let selectedId = '';
-  let autoCloseTimer: ReturnType<typeof setTimeout> | null = null;
 
   // Track which groups were opened explicitly by user clicking accordion summary
   const userOpenedGroups = new Set<HTMLElement>();
@@ -405,28 +412,12 @@ const setupAmenityMasterplan = () => {
     summary?.setAttribute('aria-expanded', open ? 'true' : 'false');
   };
 
-  const clearAutoClose = () => {
-    if (autoCloseTimer) {
-      clearTimeout(autoCloseTimer);
-      autoCloseTimer = null;
-    }
-  };
-
-  const startAutoClose = () => {
-    clearAutoClose();
-    autoCloseTimer = setTimeout(() => {
-      selectedId = '';
-      setActive('', false);
-      restoreSelection();
-    }, 3000);
-  };
-
   const setActive = (id: string, isPreview = false) => {
     pins.forEach((pin) => pin.classList.toggle('is-active', pin.dataset.amenityPin === id));
     focusButtons.forEach((button) => {
       const match = button.dataset.amenityFocus === id;
       button.classList.toggle('is-active', match);
-      if (match && id) {
+      if (match && id && !isPreview) {
         button.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
     });
@@ -436,14 +427,8 @@ const setupAmenityMasterplan = () => {
     const owningGroup = getOwningGroup(targetButton);
 
     if (isPreview) {
-      if (owningGroup && !owningGroup.classList.contains('is-open')) {
-        // Close previous temp if different
-        if (tempOpenedGroup && tempOpenedGroup !== owningGroup && !userOpenedGroups.has(tempOpenedGroup)) {
-          setGroupOpenState(tempOpenedGroup, false);
-        }
-        tempOpenedGroup = owningGroup;
-        setGroupOpenState(owningGroup, true);
-      }
+      // Hover preview: chỉ highlight pin trên masterplan, KHÔNG mở/đóng group
+      // (mở group lúc hover làm rail đẩy layout → giật khi chuột di chuyển)
     } else {
       // Permanent selection
       if (owningGroup) {
@@ -455,7 +440,6 @@ const setupAmenityMasterplan = () => {
   };
 
   const preview = (id: string) => {
-    clearAutoClose();
     setActive(id, true);
   };
 
@@ -468,25 +452,91 @@ const setupAmenityMasterplan = () => {
   };
 
   const handleInteraction = (id: string) => {
-    clearAutoClose();
     if (selectedId === id) {
-      // Toggle close
+      // Toggle close → chỉ bỏ chọn, KHÔNG zoom/reset pan
       selectedId = '';
       setActive('', false);
     } else {
+      // Chỉ chọn/soi sáng pin + giữ group mở, KHÔNG zoom, KHÔNG pan
       selectedId = id;
       setActive(id, false);
-      startAutoClose();
     }
   };
 
   const applyZoom = () => {
-    gsap.to(canvas, { scale: zoom, duration: reduceMotion ? 0 : .65, ease: 'power3.out' });
+    gsap.to(canvas, { scale: zoom, x: panX, y: panY, duration: reduceMotion ? 0 : .65, ease: 'power3.out', overwrite: 'auto' });
     zoomLabel.textContent = `${Math.round(zoom * 100)}%`;
   };
 
   root.querySelector<HTMLButtonElement>('[data-amenity-zoom-in]')?.addEventListener('click', () => { zoom = Math.min(1.55, zoom + .15); applyZoom(); });
-  root.querySelector<HTMLButtonElement>('[data-amenity-zoom-out]')?.addEventListener('click', () => { zoom = Math.max(1, zoom - .15); applyZoom(); });
+  root.querySelector<HTMLButtonElement>('[data-amenity-zoom-out]')?.addEventListener('click', () => { zoom = Math.max(1, zoom - .15); if (zoom === 1) panX = panY = 0; applyZoom(); });
+
+  // Drag-to-pan + pinch for masterplan canvas (mirrors setupMap's map stage)
+  const aPointers = new Map<number, { x: number; y: number }>();
+  let aPinchDist = 0;
+  let aPinchScale = 1;
+  let aDragX = 0;
+  let aDragY = 0;
+  let aDragging = false;
+  let aLastTap = 0;
+
+  canvas.addEventListener('pointerdown', (e) => {
+    const now = Date.now();
+    if (now - aLastTap < 280 && aPointers.size === 0) {
+      zoom = Math.min(1.55, zoom + .2);
+      applyZoom();
+      aLastTap = 0;
+      return;
+    }
+    aLastTap = now;
+    aPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    canvas.setPointerCapture(e.pointerId);
+    if (aPointers.size === 1) {
+      aDragging = true;
+      aDragX = e.clientX - panX;
+      aDragY = e.clientY - panY;
+    } else if (aPointers.size === 2) {
+      aDragging = false;
+      const pts = Array.from(aPointers.values());
+      aPinchDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+      aPinchScale = zoom;
+    }
+  });
+
+  canvas.addEventListener('pointermove', (e) => {
+    if (!aPointers.has(e.pointerId)) return;
+    aPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (aPointers.size === 2 && aPinchDist > 0) {
+      const pts = Array.from(aPointers.values());
+      const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+      zoom = Math.min(1.55, Math.max(1, aPinchScale * (dist / aPinchDist)));
+      if (zoom === 1) panX = panY = 0;
+      applyZoom();
+      return;
+    }
+    if (!aDragging) return;
+    const crect = canvas.parentElement?.getBoundingClientRect();
+    const cw = crect ? crect.width : canvas.clientWidth;
+    const ch = crect ? crect.height : canvas.clientHeight;
+    // Lim pan theo độ tràn THỰC của ảnh fit so với khung canvas (ảnh cao/rộng hơn khung vẫn kéo được ở zoom 1)
+    const fitEl = canvas.querySelector<HTMLElement>('[data-amenity-fit]');
+    const frect = fitEl?.getBoundingClientRect();
+    const limX = Math.max(40, ((frect ? frect.width : cw) * zoom - cw) / 2 + 20);
+    const limY = Math.max(40, ((frect ? frect.height : ch) * zoom - ch) / 2 + 20);
+    panX = Math.max(-limX, Math.min(limX, e.clientX - aDragX));
+    panY = Math.max(-limY, Math.min(limY, e.clientY - aDragY));
+    gsap.set(canvas, { x: panX, y: panY });
+  });
+
+  const aEnd = (e: PointerEvent) => {
+    aPointers.delete(e.pointerId);
+    if (aPointers.size <= 1) {
+      aDragging = aPointers.size === 1;
+      aPinchDist = 0;
+    }
+  };
+  canvas.addEventListener('pointerup', aEnd);
+  canvas.addEventListener('pointercancel', aEnd);
 
   pins.forEach((pin) => {
     const id = pin.dataset.amenityPin || '';
