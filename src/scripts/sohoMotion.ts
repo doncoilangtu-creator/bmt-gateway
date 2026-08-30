@@ -563,14 +563,7 @@ const setupAmenityMasterplan = () => {
 
   focusButtons.forEach((button) => {
     const id = button.dataset.amenityFocus || '';
-    button.addEventListener('pointerenter', (e) => {
-      if (e.pointerType === 'mouse') preview(id);
-    });
-    button.addEventListener('focus', () => preview(id));
-    button.addEventListener('pointerleave', (e) => {
-      if (e.pointerType === 'mouse') restoreSelection();
-    });
-    button.addEventListener('blur', restoreSelection);
+    // Bỏ hover sáng chữ phải: chỉ click mới soi sáng (is-active), rê vào không đổi màu
     button.addEventListener('click', (e) => {
       e.stopPropagation();
       handleInteraction(id);

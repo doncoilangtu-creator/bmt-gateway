@@ -62,7 +62,6 @@
 .amenity-group .amenity-list{display:grid;grid-template-columns:1fr 1fr;column-gap:14px}
 .amenity-list button b{color:#e1a487;font:600 10px/1 var(--font-label)}
 .amenity-list button.is-active{color:#fff8ef;transform:translateX(5px)}
-.amenity-list button.is-preview{color:rgba(255,248,239,.92)}
 .amenity-list::-webkit-scrollbar{width:3px}
 .amenity-list::-webkit-scrollbar-thumb{background:#c77756}
 @media(max-width:1000px){.amenity-masterplan{grid-template-columns:1fr;min-height:0;padding:58px 28px 64px}.amenity-masterplan-heading{position:relative;left:auto;top:auto;width:min(680px,100%);margin:0 0 34px}.amenity-masterplan-heading h2{font-size:48px}.amenity-masterplan-stage{grid-column:1;min-height:560px;margin:0}.amenity-rail{grid-column:1;margin-top:18px;padding:22px}.amenity-group-summary,.amenity-group summary{padding:18px 0}}
