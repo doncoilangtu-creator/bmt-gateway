@@ -4,7 +4,7 @@
 .lowrise-tabs{grid-template-columns:repeat(2,1fr)}
 .lowrise-tabs button:nth-child(2){border-right:0}
 .lowrise-floor-tabs{display:flex;flex-wrap:wrap;gap:0;margin:24px 0 0;border-bottom:1px solid rgba(45,27,19,.25)}
-.lowrise-floor-tabs button{min-width:108px;min-height:46px;padding:0 18px;border:0;border-right:1px solid rgba(45,27,19,.18);background:transparent;color:#766a63;font:600 10px/1 var(--font-label);letter-spacing:.1em;cursor:pointer}
+.lowrise-floor-tabs button{min-width:108px;min-height:46px;padding:0 18px;border:0;border-right:1px solid rgba(45,27,19,.18);background:transparent;color:var(--v2-muted);font:600 10px/1 var(--font-label);letter-spacing:.1em;cursor:pointer}
 .lowrise-floor-tabs button.is-active{background:#a85b40;color:#fffaf3}.lowrise-floor-tabs button:focus-visible{outline:2px solid #311d17;outline-offset:-3px}
 .lowrise-panel{grid-template-columns:minmax(0,1.28fr) minmax(320px,.72fr)}
 .residence-plan.lowrise-plan{height:694px;min-height:694px}

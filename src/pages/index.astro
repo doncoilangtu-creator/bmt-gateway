@@ -37,8 +37,8 @@ const manifesto = [
   <main id="top" class="soho-v2-page">
     <section class="v2-hero" data-hero-motion>
       <picture class="v2-hero-media">
-        <source media="(max-width: 700px)" srcset="/images/new-media/hero-pool.webp" />
-        <img data-hero-image src="/images/new-media/overview-aerial.webp" alt="Phối cảnh tổng thể EraCity" fetchpriority="high" data-editable-img="hero" />
+        <source media="(max-width: 700px)" srcset="/images/edited/hero.webp" />
+        <img data-hero-image src="/images/edited/hero.webp" alt="Phối cảnh tổng thể EraCity" fetchpriority="high" data-editable-img="hero" />
       </picture>
       <div class="v2-hero-shade" aria-hidden="true"></div>
       <div class="v2-hero-lock">
@@ -66,7 +66,7 @@ const manifesto = [
     </section>
 
     <section id="overview" class="v2-overview" data-chapter>
-      <img src="/images/pdf-source/landscape-pool.webp" alt="Phối cảnh 3D bể bơi và cảnh quan nội khu EraCity" loading="eager" data-editable-img="landscape" />
+      <img src="/images/edited/landscape.webp" alt="ConceptDesign p003 002 1988x1406 - EraCity" loading="eager" data-editable-img="landscape" />
       <div class="v2-overview-shade" aria-hidden="true"></div>
       <article class="v2-overview-panel">
         <p class="v2-editorial">Tổng quan dự án</p>
@@ -128,7 +128,7 @@ const manifesto = [
 
     <AmenityMasterplan />
     <section id="amenities" class="v2-amenities" data-chapter>
-      <img src="/images/new-media/hero-pool.webp" alt="Phối cảnh cảnh quan và tiện ích EraCity" loading="eager" data-editable-img="pool" />
+      <img src="/images/edited/pool.webp" alt="Phối cảnh cảnh quan và tiện ích EraCity" loading="eager" data-editable-img="pool" />
       <div class="v2-amenities-shade" aria-hidden="true"></div>
       <div class="v2-amenities-title">
         <p class="v2-editorial">Hệ cảnh quan đa lớp</p>
@@ -199,7 +199,7 @@ const manifesto = [
     (() => {
       const LS_SLIDES = 'bmt_identity_slides';
       const LS_IMAGES = 'bmt_site_images';
-      const DEFAULT_SLIDES = [{ src: '/images/new-media/dusk-facade.webp', alt: 'Phối cảnh mặt đứng kiến trúc EraCity' }];
+      const DEFAULT_SLIDES = [{ src: '/images/edited/identity-01.webp', alt: 'Presentation1 p049 508 1988x1406 - EraCity' }, { src: '/images/edited/identity-02.webp', alt: 'Presentation1 p013 016 1989x1407 - EraCity' }, { src: '/images/edited/identity-03.webp', alt: 'Presentation1 p020 168 1989x1406 - EraCity' }, { src: '/images/edited/identity-04.webp', alt: 'Presentation1 p043 500 1989x1404 - EraCity' }, { src: '/images/edited/identity-05.webp', alt: 'Presentation1 p053 516 408x179 - EraCity' }];
       const isEdit = new URLSearchParams(location.search).has('edit') || localStorage.getItem('bmt_site_edit') === '1';
 
       const figure = document.querySelector('.v2-identity-media');
@@ -367,7 +367,7 @@ const manifesto = [
 
       // ——— Amenities: ảnh nền chạy slide (localStorage bmt_amenities_slides) ———
       const LS_AMEN = 'bmt_amenities_slides';
-      const DEFAULT_AM_SLIDES = [{ src: '/images/new-media/hero-pool.webp', alt: 'Phối cảnh cảnh quan và tiện ích EraCity' }];
+      const DEFAULT_AM_SLIDES = [{ src: '/images/edited/amenities-01.webp', alt: 'Presentation1 p053 513 333x201 - EraCity' }, { src: '/images/edited/amenities-02.webp', alt: 'Presentation1 p053 532 395x201 - EraCity' }, { src: '/images/edited/amenities-03.webp', alt: 'Presentation1 p064 557 736x673 - EraCity' }, { src: '/images/edited/amenities-04.webp', alt: 'Presentation1 p064 558 480x438 - EraCity' }, { src: '/images/edited/amenities-05.webp', alt: 'Presentation1 p014 017 1988x1404 - EraCity' }];
       const amSection = document.querySelector('.v2-amenities');
       const readAmSlides = () => {
         try {

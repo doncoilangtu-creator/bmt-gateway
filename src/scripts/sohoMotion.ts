@@ -413,24 +413,28 @@ const setupAmenityMasterplan = () => {
   };
 
   const setActive = (id: string, isPreview = false) => {
-    pins.forEach((pin) => pin.classList.toggle('is-active', pin.dataset.amenityPin === id));
+    // Phân biệt hover (isPreview) vs chọn thật — hover chỉ is-preview, không sáng chói
+    pins.forEach((pin) => {
+      const isMatch = pin.dataset.amenityPin === id;
+      pin.classList.toggle('is-active', !isPreview && isMatch);
+      pin.classList.toggle('is-preview', isPreview && isMatch);
+    });
     focusButtons.forEach((button) => {
       const match = button.dataset.amenityFocus === id;
-      button.classList.toggle('is-active', match);
+      button.classList.toggle('is-active', !isPreview && match);
+      button.classList.toggle('is-preview', isPreview && match);
       if (match && id && !isPreview) {
         button.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
     });
-    root.dataset.amenityActive = id;
+    if (!isPreview) root.dataset.amenityActive = id;
 
     const targetButton = focusButtons.find((button) => button.dataset.amenityFocus === id);
     const owningGroup = getOwningGroup(targetButton);
 
     if (isPreview) {
-      // Hover preview: chỉ highlight pin trên masterplan, KHÔNG mở/đóng group
-      // (mở group lúc hover làm rail đẩy layout → giật khi chuột di chuyển)
+      // Hover preview: chỉ highlight nhẹ, KHÔNG mở/đóng group, KHÔNG glow
     } else {
-      // Permanent selection
       if (owningGroup) {
         userOpenedGroups.add(owningGroup);
         setGroupOpenState(owningGroup, true);
@@ -448,6 +452,9 @@ const setupAmenityMasterplan = () => {
       setGroupOpenState(tempOpenedGroup, false);
       tempOpenedGroup = null;
     }
+    // dọn is-preview trước khi trả về chọn thật
+    pins.forEach((p) => p.classList.remove('is-preview'));
+    focusButtons.forEach((b) => b.classList.remove('is-preview'));
     setActive(selectedId, false);
   };
 
