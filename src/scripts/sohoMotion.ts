@@ -578,7 +578,7 @@ const setupAmenityMasterplan = () => {
   const groupElements = root.querySelectorAll('.amenity-group');
 
   gsap.set(heading, { y: 28, autoAlpha: 0 });
-  gsap.set(canvas, { scale: 1.08, autoAlpha: .72 });
+  gsap.set(canvas, { scale: 1, autoAlpha: 1 });
   gsap.set(pins, { autoAlpha: 0, scale: .72 });
   if (railIntro) gsap.set(railIntro, { y: 20, autoAlpha: 0 });
   if (listPrimaryButtons.length) gsap.set(listPrimaryButtons, { y: 14, autoAlpha: 0 });
