@@ -75,9 +75,9 @@
 @keyframes amenityActivePulse{0%,100%{transform:scale(1.12)}50%{transform:scale(1.28)}}
 /* Keep chapter copy in document flow: no fixed offset can overlap the media. */
 @media(min-width:1001px){
-.amenity-masterplan{grid-template-rows:auto minmax(650px,auto);align-items:stretch}
+.amenity-masterplan{grid-template-rows:auto minmax(760px,auto);align-items:stretch}
 .amenity-masterplan-heading{position:relative;grid-column:1/-1;grid-row:1;left:auto;top:auto;width:min(720px,65vw);margin:0 0 42px;pointer-events:auto}
-.amenity-masterplan-stage{grid-column:1;grid-row:2;margin:0 22px 0 0;min-height:650px}
+.amenity-masterplan-stage{grid-column:1;grid-row:2;margin:0 22px 0 0;min-height:760px;height:clamp(760px,78vh,850px)}
 .amenity-rail{grid-column:2;grid-row:2;margin-top:0}
 }
 @media(prefers-reduced-motion:reduce){.amenity-masterplan-canvas{transition:none}.amenity-pin b,.amenity-pin span,.amenity-list button{transition:none}.amenity-pin.is-active b{animation:none}}
