@@ -4,7 +4,7 @@
 .floating-cta{position:fixed;right:16px;bottom:16px;z-index:60;display:flex;flex-direction:column;gap:10px}
 .floating-cta-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:54px;height:54px;border-radius:50%;background:var(--v2-coffee);color:#fff8ef;box-shadow:0 6px 18px rgba(21,12,9,.35);transition:transform .25s ease,background .25s ease}
 .floating-cta-btn span{font:600 9px/1 var(--font-label);letter-spacing:.08em;text-transform:uppercase}
-.floating-cta-zalo{background:#fff8ef;border:none;color:#2d1b13;border-radius:14px;box-shadow:0 10px 30px rgba(15,7,4,.28)}.floating-cta-zalo span{color:#2d1b13}
+.floating-cta-zalo{background:var(--v2-coffee);border:none;color:#fff8ef;box-shadow:0 10px 30px rgba(15,7,4,.25)}
 .floating-cta-btn:hover{transform:translateY(-2px)}
 .floating-cta-btn:focus-visible{outline:3px solid var(--v2-copper);outline-offset:3px}
 @media(max-width:700px){.floating-cta{right:12px;bottom:12px}.floating-cta-btn{width:48px;height:48px}}
