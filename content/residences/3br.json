@@ -1,0 +1,15 @@
+{
+  "unitId": "3br",
+  "id": "3br",
+  "index": "04",
+  "name": "Căn hộ 3BR",
+  "code": "CH-C1",
+  "bedrooms": "3 phòng ngủ",
+  "usableArea": "100,5 m²",
+  "wallArea": "109,7 m²",
+  "description": "Không gian rộng cho gia đình đa thế hệ, có kho, logia lớn và phòng ngủ master.",
+  "image": "/images/crops/plan-3br-crop.webp",
+  "pdf": "/images/floor-plans/original-pdf/ch-c1-3br.pdf",
+  "locatorImage": "/images/floor-plans/locators/ch-c1-locator.webp",
+  "locatorLabel": "VỊ TRÍ CĂN HỘ CH-C1 TRÊN MẶT BẰNG TẦNG"
+}

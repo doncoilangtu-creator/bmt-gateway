@@ -1,0 +1,68 @@
+{
+  "productId": "townhouse",
+  "id": "townhouse",
+  "index": "02",
+  "name": "NHÀ LIỀN KỀ",
+  "type": "Townhouse",
+  "model": "NHÀ Ở THẤP TẦNG · NHIỀU LỚP KHÔNG GIAN",
+  "format": "Nhà ở nhiều tầng · Ban công · Sân và vị trí đỗ xe",
+  "description": "Nhịp mặt đứng đứng, ban công trồng cây và khoảng lùi trước nhà hình thành một tuyến phố ở riêng tư nhưng giàu kết nối.",
+  "image": "/images/pdf-source/townhouse-view-2.webp",
+  "source": "/images/pdf-source/townhouse-source.pdf",
+  "planImage": "/images/floor-plans/lowrise/townhouse-m21-b1-ground.webp",
+  "planSource": "/images/floor-plans/lowrise/townhouse-m21-b1-ground.pdf",
+  "planLabel": "MẶT BẰNG TẦNG 1 · NHÀ LIỀN KỀ",
+  "planDescription": "Bộ mặt bằng các tầng từ hồ sơ StudioMilou. Bố trí phòng khách, bếp + ăn, sảnh tầng, phòng ngủ, ban công, sân và tầng mái của nhà liền kề.",
+  "floors": [
+    {
+      "floorId": "tang-1",
+      "id": "tang-1",
+      "label": "TẦNG 1",
+      "image": "/images/floor-plans/lowrise/townhouse-tang-1.webp",
+      "pdf": "/images/floor-plans/lowrise/townhouse-tang-1.pdf",
+      "architectureImage": "/images/pdf-source/townhouse-view-2.webp",
+      "architectureSource": "/images/pdf-source/townhouse-source.pdf",
+      "architectureLabel": "PHỐI CẢNH ĐẠI DIỆN · NHÀ LIỀN KỀ"
+    },
+    {
+      "floorId": "tang-2",
+      "id": "tang-2",
+      "label": "TẦNG 2",
+      "image": "/images/floor-plans/lowrise/townhouse-tang-2.webp",
+      "pdf": "/images/floor-plans/lowrise/townhouse-tang-2.pdf",
+      "architectureImage": "/images/pdf-source/townhouse-view-2.webp",
+      "architectureSource": "/images/pdf-source/townhouse-source.pdf",
+      "architectureLabel": "PHỐI CẢNH ĐẠI DIỆN · NHÀ LIỀN KỀ"
+    },
+    {
+      "floorId": "tang-3",
+      "id": "tang-3",
+      "label": "TẦNG 3",
+      "image": "/images/floor-plans/lowrise/townhouse-tang-3.webp",
+      "pdf": "/images/floor-plans/lowrise/townhouse-tang-3.pdf",
+      "architectureImage": "/images/pdf-source/townhouse-view-2.webp",
+      "architectureSource": "/images/pdf-source/townhouse-source.pdf",
+      "architectureLabel": "PHỐI CẢNH ĐẠI DIỆN · NHÀ LIỀN KỀ"
+    },
+    {
+      "floorId": "tang-4",
+      "id": "tang-4",
+      "label": "TẦNG 4",
+      "image": "/images/floor-plans/lowrise/townhouse-tang-4.webp",
+      "pdf": "/images/floor-plans/lowrise/townhouse-tang-4.pdf",
+      "architectureImage": "/images/pdf-source/townhouse-view-2.webp",
+      "architectureSource": "/images/pdf-source/townhouse-source.pdf",
+      "architectureLabel": "PHỐI CẢNH ĐẠI DIỆN · NHÀ LIỀN KỀ"
+    },
+    {
+      "floorId": "tang-mai",
+      "id": "tang-mai",
+      "label": "TẦNG MÁI",
+      "image": "/images/floor-plans/lowrise/townhouse-tang-mai.webp",
+      "pdf": "/images/floor-plans/lowrise/townhouse-tang-mai.pdf",
+      "architectureImage": "/images/pdf-source/townhouse-view-2.webp",
+      "architectureSource": "/images/pdf-source/townhouse-source.pdf",
+      "architectureLabel": "PHỐI CẢNH ĐẠI DIỆN · NHÀ LIỀN KỀ"
+    }
+  ]
+}

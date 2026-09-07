@@ -2,6 +2,7 @@
 dist/
 # generated types
 .astro/
+tina/__generated__/
 
 # dependencies
 node_modules/
@@ -37,8 +38,7 @@ recovery/
 mock-concept/
 mock-soho-v2/
 qa-output/
-qa-local.cjs
-qa-responsive.cjs
+qa-*.cjs
 
 # superseded source/QA map assets (production uses the optimized clean variants)
 public/images/location/carto-161-nguyen-chi-thanh.webp

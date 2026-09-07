@@ -1,11 +1,13 @@
 ---
-const groups = [
-  { id: 'water', label: 'Mặt nước & hồ bơi', items: [['07', 'Hồ bơi lớn'], ['08', 'Hồ bơi trẻ em'], ['09', 'Hồ massage'], ['10', 'Hồ cạn'], ['11', 'Tắm tráng'], ['12', 'Chòi nghỉ hồ bơi'], ['15', 'Hồ cảnh vô cực']] },
-  { id: 'garden', label: 'Vườn & nghỉ ngơi', items: [['05', 'Vườn kết nối'], ['06', 'Cây điểm nhấn'], ['13', 'Chòi nghỉ đồi núi'], ['14', 'Vườn chìm'], ['19', 'Vườn sưởi'], ['20', 'Đồi nướng'], ['21', 'Đồi thiền · yoga'], ['22', 'Đồi thư giãn'], ['23', 'Vườn nghỉ ngơi'], ['24', 'Hẻm núi'], ['27', 'Vườn bậc thang']] },
-  { id: 'family', label: 'Gia đình & vận động', items: [['16', 'Sân chơi trẻ em'], ['17', 'Sân chơi đèn lồng'], ['18', 'Sân chơi cát'], ['25', 'Sân thể thao đa năng'], ['26', 'Sân thể dục ngoài trời'], ['28', 'Bãi cỏ đa năng · biểu tượng đèn lồng']] },
-];
-// Vị trí pins 27/08: căn theo SỐ trên bản vẽ gốc (Presentation 1 - Page 15) — xem ảnh nền. Tên-số chờ CĐT rà lần cuối.
-const pinsDesktop = [['01', 'Biển hiệu', '63.9076%', '88.5824%'], ['02', 'Hồ nước điểm nhấn', '91.3283%', '57.2883%'], ['03', 'Cảnh quan chào đón', '38.4596%', '90.5355%'], ['03', 'Cảnh quan chào đón', '38.4596%', '90.5355%'], ['03', 'Cảnh quan chào đón', '38.4596%', '90.5355%'], ['03', 'Cảnh quan chào đón', '38.4596%', '90.5355%'], ['04', 'Quảng trường', '62.5267%', '76.0825%'], ['05', 'Vườn kết nối', '86.265%', '37.1941%'], ['06', 'Cây điểm nhấn', '57.2662%', '52.7449%'], ['07', 'Hồ bơi lớn', '33.2648%', '45.3912%'], ['08', 'Hồ bơi trẻ em', '49.2438%', '48.8354%'], ['09', 'Hồ massage', '41.9448%', '49.111%'], ['10', 'Hồ cạn', '31.0949%', '49.2487%'], ['11', 'Tắm tráng', '41.0899%', '54.8283%'], ['12', 'Chòi nghỉ hồ bơi', '28.0703%', '53.6573%'], ['13', 'Chòi nghỉ đồi núi', '40.1036%', '36.2297%'], ['14', 'Vườn chìm', '48.1917%', '42.8133%'], ['15', 'Hồ cảnh vô cực', '30.8318%', '38.1584%'], ['16', 'Sân chơi trẻ em', '58.2525%', '46.2178%'], ['17', 'Sân chơi đèn lồng', '62.5267%', '43.0492%'], ['18', 'Sân chơi cát', '38.6577%', '21.0064%'], ['19', 'Vườn sưởi', '66.0118%', '38.5715%'], ['20', 'Đồi nướng', '57.5949%', '32.9171%'], ['21', 'Đồi thiền · yoga', '37.3991%', '30.7879%'], ['22', 'Đồi thư giãn', '49.7041%', '27.0681%'], ['23', 'Vườn nghỉ ngơi', '63.5896%', '28.1749%'], ['24', 'Hẻm núi', '53.1133%', '30.3057%'], ['25', 'Sân thể thao đa năng', '30.0%', '38.0%'], ['26', 'Sân thể dục ngoài trời', '38.273%', '10.2605%'], ['27', 'Vườn bậc thang', '50.4274%', '21.7641%'], ['28', 'Bãi đa năng', '52.5974%', '16.3911%']];
+import { amenitiesData } from '../lib/tina';
+
+const groups = amenitiesData.groups.map((g: any) => ({
+  id: g.groupId || g.id,
+  label: g.label,
+  items: g.items.map((item: any) => [item.number, item.label]),
+}));
+const savedPins = (amenitiesData as any).pins || {};
+const pinsDesktop = [['01', 'Biển hiệu', '63.9076%', '88.5824%'], ['02', 'Hồ nước điểm nhấn', '91.3283%', '57.2883%'], ['03', 'Cảnh quan chào đón', '38.4596%', '90.5355%'], ['03', 'Cảnh quan chào đón', '38.4596%', '90.5355%'], ['03', 'Cảnh quan chào đón', '38.4596%', '90.5355%'], ['03', 'Cảnh quan chào đón', '38.4596%', '90.5355%'], ['04', 'Quảng trường', '62.5267%', '76.0825%'], ['05', 'Vườn kết nối', '86.265%', '37.1941%'], ['06', 'Cây điểm nhấn', '57.2662%', '52.7449%'], ['07', 'Hồ bơi lớn', '33.2648%', '45.3912%'], ['08', 'Hồ bơi trẻ em', '49.2438%', '48.8354%'], ['09', 'Hồ massage', '41.9448%', '49.111%'], ['10', 'Hồ cạn', '31.0949%', '49.2487%'], ['11', 'Tắm tráng', '41.0899%', '54.8283%'], ['12', 'Chòi nghỉ hồ bơi', '28.0703%', '53.6573%'], ['13', 'Chòi nghỉ đồi núi', '40.1036%', '36.2297%'], ['14', 'Vườn chìm', '48.1917%', '42.8133%'], ['15', 'Hồ cảnh vô cực', '30.8318%', '38.1584%'], ['16', 'Sân chơi trẻ em', '58.2525%', '46.2178%'], ['17', 'Sân chơi đèn lồng', '62.5267%', '43.0492%'], ['18', 'Sân chơi cát', '38.6577%', '21.0064%'], ['19', 'Vườn sưởi', '66.0118%', '38.5715%'], ['20', 'Đồi nướng', '57.5949%', '32.9171%'], ['21', 'Đồi thiền · yoga', '37.3991%', '30.7879%'], ['22', 'Đồi thư giãn', '49.7041%', '27.0681%'], ['23', 'Vườn nghỉ ngơi', '63.5896%', '28.1749%'], ['24', 'Hẻm núi', '53.1133%', '30.3057%'], ['25', 'Sân thể thao đa năng', '30.0%', '38.0%'], ['26', 'Sân thể dục ngoài trời', '38.273%', '10.2605%'], ['27', 'Vườn bậc thang', '50.4274%', '21.7641%'], ['28', 'Bãi đa năng', '52.5974%', '16.3911%']].map(([num, lbl, defLeft, defTop]) => [num, lbl, savedPins[num]?.left || defLeft, savedPins[num]?.top || defTop]);
 const pinsMobile = [['01', 'Biển hiệu', '18%', '88%'], ['02', 'Hồ nước điểm nhấn', '70%', '20%'], ['03', 'Cảnh quan chào đón', '14%', '80%'], ['03', 'Cảnh quan chào đón', '60%', '12%'], ['03', 'Cảnh quan chào đón', '30%', '92%'], ['03', 'Cảnh quan chào đón', '85%', '88%'], ['04', 'Quảng trường', '45%', '62%'], ['05', 'Vườn kết nối', '50%', '48%'], ['06', 'Cây điểm nhấn', '58%', '52%'], ['07', 'Hồ bơi lớn', '31%', '28%'], ['08', 'Hồ bơi trẻ em', '23%', '36%'], ['09', 'Hồ massage', '36%', '32%'], ['10', 'Hồ cạn', '26%', '26%'], ['11', 'Tắm tráng', '33%', '20%'], ['12', 'Chòi nghỉ hồ bơi', '18%', '22%'], ['13', 'Chòi nghỉ đồi núi', '80%', '30%'], ['14', 'Vườn chìm', '38%', '44%'], ['15', 'Hồ cảnh vô cực', '40%', '24%'], ['16', 'Sân chơi trẻ em', '20%', '52%'], ['17', 'Sân chơi đèn lồng', '25%', '58%'], ['18', 'Sân chơi cát', '30%', '60%'], ['19', 'Vườn sưởi', '78%', '44%'], ['20', 'Đồi nướng', '84%', '36%'], ['21', 'Đồi thiền · yoga', '75%', '26%'], ['22', 'Đồi thư giãn', '70%', '40%'], ['23', 'Vườn nghỉ ngơi', '88%', '52%'], ['24', 'Hẻm núi', '82%', '58%'], ['25', 'Sân thể thao đa năng', '60%', '70%'], ['26', 'Sân thể dục ngoài trời', '52%', '72%'], ['27', 'Vườn bậc thang', '46%', '78%'], ['28', 'Bãi đa năng', '68%', '16%']];
 ---
 <section id="amenity-masterplan" class="amenity-masterplan" data-amenity-masterplan data-chapter aria-labelledby="amenity-masterplan-title">
@@ -43,96 +45,6 @@ const pinsMobile = [['01', 'Biển hiệu', '18%', '88%'], ['02', 'Hồ nước 
   </aside>
 </section>
 
-<script>
-  // ——— Chế độ chỉnh vị trí pin trực tiếp trên giao diện ———
-  // Bật: thêm ?edit=1 vào URL (hoặc a[id] trong localStorage). Kéo pin → Lưu (localStorage) / Xuất JSON (dán vào code).
-  (() => {
-    const LS_KEY = 'bmt_amenity_pins';
-    const canvas = document.querySelector('[data-amenity-canvas]');
-    const pins = Array.from(document.querySelectorAll('[data-amenity-pin]'));
-    const toolbar = document.querySelector('[data-edit-toolbar]');
-    const hint = document.querySelector('[data-edit-hint]');
-    if (!canvas || !pins.length || !toolbar) return;
-
-    const isEdit = new URLSearchParams(location.search).has('edit') || localStorage.getItem('bmt_amenity_edit') === '1';
-    if (!isEdit) return;
-
-    document.body.classList.add('amenity-edit-mode');
-    toolbar.hidden = false;
-    let dirty = false;
-
-    const clamp = (v) => Math.min(97, Math.max(3, v));
-
-    const store = () => {
-      const out = {};
-      pins.forEach(p => { out[p.dataset.amenityPin] = { left: p.style.left, top: p.style.top }; });
-      localStorage.setItem(LS_KEY, JSON.stringify(out));
-      dirty = false;
-      if (hint) hint.textContent = 'Đã lưu ✓ (F5 để xem lại).';
-    };
-
-    const exportJson = async () => {
-      const out = {};
-      pins.forEach(p => { out[p.dataset.amenityPin] = { left: p.style.left, top: p.style.top }; });
-      const json = JSON.stringify(out, null, 0);
-      try {
-        await navigator.clipboard.writeText(json);
-        if (hint) hint.textContent = 'Đã copy JSON — dán vào pins[] của AmenityMasterplan.astro.';
-      } catch (e) {
-        if (hint) hint.textContent = json;
-      }
-    };
-
-    const resetAll = () => {
-      localStorage.removeItem(LS_KEY);
-      location.reload();
-    };
-
-    // Áp dụng vị trí đã lưu (nếu có)
-    try {
-      const saved = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
-      pins.forEach(p => {
-        const s = saved[p.dataset.amenityPin];
-        if (s) { p.style.left = s.left; p.style.top = s.top; }
-      });
-    } catch (e) {}
-
-    // Kéo thả pin
-    let drag = null;
-    const onPointerDown = (e) => {
-      if (e.target.closest('button:not([data-amenity-pin])')) return;
-      const pin = e.target.closest('[data-amenity-pin]');
-      if (!pin) return;
-      e.preventDefault();
-      e.stopPropagation();
-      pin.setPointerCapture(e.pointerId);
-      drag = { pin, id: pin.dataset.amenityPin, dx: 0, dy: 0 };
-    };
-    const onPointerMove = (e) => {
-      if (!drag) return;
-      const rect = canvas.getBoundingClientRect();
-      const l = clamp(((e.clientX - rect.left) / rect.width) * 100);
-      const t = clamp(((e.clientY - rect.top) / rect.height) * 100);
-      drag.pin.style.left = l + '%';
-      drag.pin.style.top = t + '%';
-      dirty = true;
-      if (hint) hint.textContent = `Pin ${drag.id}: ${l.toFixed(1)}% / ${t.toFixed(1)}%`;
-    };
-    const onPointerUp = (e) => {
-      if (!drag) return;
-      try { drag.pin.releasePointerCapture(e.pointerId); } catch (err) {}
-      drag = null;
-    };
-    canvas.addEventListener('pointerdown', onPointerDown);
-    canvas.addEventListener('pointermove', onPointerMove);
-    canvas.addEventListener('pointerup', onPointerUp);
-    canvas.addEventListener('pointercancel', onPointerUp);
-
-    toolbar.querySelector('[data-edit-save]').addEventListener('click', store);
-    toolbar.querySelector('[data-edit-export]').addEventListener('click', exportJson);
-    toolbar.querySelector('[data-edit-reset]').addEventListener('click', resetAll);
-  })();
-</script>
 
 <style>
   .amenity-edit-mode .amenity-pin {

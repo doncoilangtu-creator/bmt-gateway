@@ -218,6 +218,10 @@ const setupMap = () => {
   };
 
   stage.addEventListener('pointerdown', (event) => {
+    const targetEl = event.target as HTMLElement;
+    if (targetEl.closest('[data-map-pin], [data-map-pin-pulse], [data-map-label]')) {
+      return;
+    }
     const now = Date.now();
     if (now - lastTapTime < 280 && activePointers.size === 0) {
       // Double tap / double click to zoom in
@@ -290,8 +294,8 @@ const setupMap = () => {
     gsap.set(routePaths, { opacity: 1 });
     gsap.set(routeFlowPaths, { opacity: .8 });
     gsap.set(siteShape, { opacity: 1 });
-    gsap.set(pin, { opacity: 1 });
-    gsap.set(pinPulse, { opacity: .9 });
+    gsap.set(pin, { opacity: 1, xPercent: -50, yPercent: -100, transformOrigin: '50% 100%' });
+    gsap.set(pinPulse, { opacity: .9, xPercent: -50, yPercent: -50, transformOrigin: '50% 50%' });
     gsap.set(mapLabels, { opacity: 1 });
     return;
   }
@@ -300,8 +304,8 @@ const setupMap = () => {
   gsap.set(routePaths, { autoAlpha: 0, transformOrigin: '50% 50%' });
   gsap.set(routeFlowPaths, { autoAlpha: 0, strokeDashoffset: 0 });
   gsap.set(siteShape, { autoAlpha: 0, scale: .84, transformOrigin: '50% 50%' });
-  gsap.set(pin, { autoAlpha: 0, scale: .82, y: 12 });
-  gsap.set(pinPulse, { autoAlpha: 0, scale: .6 });
+  gsap.set(pin, { autoAlpha: 0, scale: .82, xPercent: -50, yPercent: -100, y: 12, transformOrigin: '50% 100%' });
+  gsap.set(pinPulse, { autoAlpha: 0, scale: .6, xPercent: -50, yPercent: -50, transformOrigin: '50% 50%' });
   gsap.set(mapLabels, { autoAlpha: 0, y: 10 });
   gsap.set(image, { scale: 1.18, xPercent: -2.5, yPercent: 1.5, clipPath: 'inset(7% 6% 7% 6%)', filter: 'saturate(.28) sepia(.18) contrast(.9) brightness(.72)' });
   gsap.set(curtain, { clipPath: 'inset(0% 0% 0% 0%)', xPercent: 0, autoAlpha: 1 });
@@ -342,8 +346,8 @@ const setupMap = () => {
     .to(routePaths, { autoAlpha: 1, duration: .38, stagger: .08, ease: 'power1.out' }, .72)
     .to(routeFlowPaths, { autoAlpha: .9, duration: .45, stagger: .12 }, .92)
     .to(siteShape, { autoAlpha: 1, scale: 1, duration: .55, ease: 'back.out(1.6)' }, 1.05)
-    .to(pin, { autoAlpha: 1, scale: 1, y: 0, duration: .7, ease: 'back.out(1.6)' }, 1.12)
-    .to(pinPulse, { autoAlpha: .9, scale: 1, duration: .45, ease: 'back.out(1.8)' }, 1.16)
+    .to(pin, { autoAlpha: 1, scale: 1, xPercent: -50, yPercent: -100, y: 0, duration: .7, ease: 'back.out(1.6)' }, 1.12)
+    .to(pinPulse, { autoAlpha: .9, scale: 1, xPercent: -50, yPercent: -50, duration: .45, ease: 'back.out(1.8)' }, 1.16)
     .to(mapLabels, { autoAlpha: 1, y: 0, duration: .6, stagger: .14, ease: 'power2.out' }, 1.28)
     .call(() => {
       map.dataset.routeStatus = 'active';
@@ -488,6 +492,10 @@ const setupAmenityMasterplan = () => {
   let aLastTap = 0;
 
   canvas.addEventListener('pointerdown', (e) => {
+    const targetEl = e.target as HTMLElement;
+    if (targetEl.closest('[data-amenity-pin], button')) {
+      return;
+    }
     const now = Date.now();
     if (now - aLastTap < 280 && aPointers.size === 0) {
       zoom = Math.min(1.55, zoom + .2);
@@ -556,6 +564,11 @@ const setupAmenityMasterplan = () => {
     });
     pin.addEventListener('blur', restoreSelection);
     pin.addEventListener('click', (e) => {
+      if (document.body.classList.contains('visual-edit-mode')) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
       e.stopPropagation();
       handleInteraction(id);
     });

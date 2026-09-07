@@ -1,0 +1,244 @@
+{
+  "editorial": "04 / Landscape & Amenities",
+  "title": "HỆ TIỆN ÍCH ĐẶC QUYỀN ĐA DẠNG",
+  "description": "Đọc toàn bộ lớp cảnh quan, mặt nước, vận động và cộng đồng trong masterplan của EraCity.",
+  "masterplanImage": "/images/amenities/amenity-masterplan-p15e.webp",
+  "source": "Nguồn: studioMilou · Master plan · 04.2026",
+  "groups": [
+    {
+      "groupId": "water",
+      "id": "water",
+      "label": "Mặt nước & hồ bơi",
+      "items": [
+        {
+          "number": "07",
+          "label": "Hồ bơi lớn"
+        },
+        {
+          "number": "08",
+          "label": "Hồ bơi trẻ em"
+        },
+        {
+          "number": "09",
+          "label": "Hồ massage"
+        },
+        {
+          "number": "10",
+          "label": "Hồ cạn"
+        },
+        {
+          "number": "11",
+          "label": "Tắm tráng"
+        },
+        {
+          "number": "12",
+          "label": "Chòi nghỉ hồ bơi"
+        },
+        {
+          "number": "15",
+          "label": "Hồ cảnh vô cực"
+        }
+      ]
+    },
+    {
+      "groupId": "garden",
+      "id": "garden",
+      "label": "Vườn & nghỉ ngơi",
+      "items": [
+        {
+          "number": "05",
+          "label": "Vườn kết nối"
+        },
+        {
+          "number": "06",
+          "label": "Cây điểm nhấn"
+        },
+        {
+          "number": "13",
+          "label": "Chòi nghỉ đồi núi"
+        },
+        {
+          "number": "14",
+          "label": "Vườn chìm"
+        },
+        {
+          "number": "19",
+          "label": "Vườn sưởi"
+        },
+        {
+          "number": "20",
+          "label": "Đồi nướng"
+        },
+        {
+          "number": "21",
+          "label": "Đồi thiền · yoga"
+        },
+        {
+          "number": "22",
+          "label": "Đồi thư giãn"
+        },
+        {
+          "number": "23",
+          "label": "Vườn nghỉ ngơi"
+        },
+        {
+          "number": "24",
+          "label": "Hẻm núi"
+        },
+        {
+          "number": "27",
+          "label": "Vườn bậc thang"
+        }
+      ]
+    },
+    {
+      "groupId": "family",
+      "id": "family",
+      "label": "Gia đình & vận động",
+      "items": [
+        {
+          "number": "16",
+          "label": "Sân chơi trẻ em"
+        },
+        {
+          "number": "17",
+          "label": "Sân chơi đèn lồng"
+        },
+        {
+          "number": "18",
+          "label": "Sân chơi cát"
+        },
+        {
+          "number": "25",
+          "label": "Sân thể thao đa năng"
+        },
+        {
+          "number": "26",
+          "label": "Sân thể dục ngoài trời"
+        },
+        {
+          "number": "28",
+          "label": "Bãi cỏ đa năng · biểu tượng đèn lồng"
+        }
+      ]
+    }
+  ],
+  "pins": {
+    "10": {
+      "left": "28.8406%",
+      "top": "48.7672%"
+    },
+    "11": {
+      "left": "",
+      "top": ""
+    },
+    "12": {
+      "left": "31.7335%",
+      "top": "54.0185%"
+    },
+    "13": {
+      "left": "",
+      "top": ""
+    },
+    "14": {
+      "left": "48.9431%",
+      "top": "42.8133%"
+    },
+    "15": {
+      "left": "",
+      "top": ""
+    },
+    "16": {
+      "left": "59.7554%",
+      "top": "46.3382%"
+    },
+    "17": {
+      "left": "64.7810%",
+      "top": "46.0588%"
+    },
+    "18": {
+      "left": "",
+      "top": ""
+    },
+    "19": {
+      "left": "66.5754%",
+      "top": "38.3307%"
+    },
+    "20": {
+      "left": "57.9706%",
+      "top": "34.6025%"
+    },
+    "21": {
+      "left": "",
+      "top": ""
+    },
+    "22": {
+      "left": "",
+      "top": ""
+    },
+    "23": {
+      "left": "63.7775%",
+      "top": "27.4526%"
+    },
+    "24": {
+      "left": "53.2072%",
+      "top": "30.3057%"
+    },
+    "25": {
+      "left": "27.0882%",
+      "top": "31.3789%"
+    },
+    "26": {
+      "left": "",
+      "top": ""
+    },
+    "27": {
+      "left": "",
+      "top": ""
+    },
+    "28": {
+      "left": "54.1942%",
+      "top": "16.6319%"
+    },
+    "01": {
+      "left": "63.9076%",
+      "top": "88.5824%"
+    },
+    "02": {
+      "left": "",
+      "top": ""
+    },
+    "03": {
+      "left": "82.4181%",
+      "top": "64.2917%"
+    },
+    "04": {
+      "left": "",
+      "top": ""
+    },
+    "05": {
+      "left": "",
+      "top": ""
+    },
+    "06": {
+      "left": "57.9237%",
+      "top": "52.7449%"
+    },
+    "07": {
+      "left": "33.8284%",
+      "top": "44.3077%"
+    },
+    "08": {
+      "left": "50.3709%",
+      "top": "49.9189%"
+    },
+    "09": {
+      "left": "45.0444%",
+      "top": "48.5091%"
+    },
+    "location_project": {
+      "left": "44.1605%",
+      "top": "54.8777%"
+    }
+  }
+}

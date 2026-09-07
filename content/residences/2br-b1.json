@@ -1,0 +1,15 @@
+{
+  "unitId": "2br-b1",
+  "id": "2br-b1",
+  "index": "02",
+  "name": "Căn hộ 2BR",
+  "code": "CH-B1",
+  "bedrooms": "2 phòng ngủ",
+  "usableArea": "71,0 m²",
+  "wallArea": "77,2 m²",
+  "description": "Phương án cân bằng cho gia đình trẻ với khu sinh hoạt chung và hai logia.",
+  "image": "/images/crops/plan-2br-b1-crop.webp",
+  "pdf": "/images/floor-plans/original-pdf/ch-b1-2br.pdf",
+  "locatorImage": "/images/floor-plans/locators/ch-b1-locator.webp",
+  "locatorLabel": "VỊ TRÍ CĂN HỘ CH-B1 TRÊN MẶT BẰNG TẦNG"
+}

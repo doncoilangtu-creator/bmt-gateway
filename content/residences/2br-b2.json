@@ -1,0 +1,15 @@
+{
+  "unitId": "2br-b2",
+  "id": "2br-b2",
+  "index": "03",
+  "name": "Căn hộ 2BR",
+  "code": "CH-B2",
+  "bedrooms": "2 phòng ngủ",
+  "usableArea": "70,5 m²",
+  "wallArea": "77,5 m²",
+  "description": "Mặt bằng tối ưu diện tích sử dụng, phù hợp nhu cầu ở thực và nắm giữ dài hạn.",
+  "image": "/images/crops/plan-2br-b2-crop.webp",
+  "pdf": "/images/floor-plans/original-pdf/ch-b2-2br.pdf",
+  "locatorImage": "/images/floor-plans/locators/ch-b2-locator.webp",
+  "locatorLabel": "VỊ TRÍ CĂN HỘ CH-B2 TRÊN MẶT BẰNG TẦNG"
+}

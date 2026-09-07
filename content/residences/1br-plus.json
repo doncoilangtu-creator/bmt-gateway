@@ -1,0 +1,15 @@
+{
+  "unitId": "1br-plus",
+  "id": "1br-plus",
+  "index": "01",
+  "name": "Căn hộ 1BR+",
+  "code": "CH-A1",
+  "bedrooms": "1 phòng ngủ mở rộng",
+  "usableArea": "45,6 m²",
+  "wallArea": "49,2 m²",
+  "description": "Không gian vừa đủ cho người trẻ, chuyên gia và nhu cầu khai thác linh hoạt.",
+  "image": "/images/crops/plan-1br-plus-crop.webp",
+  "pdf": "/images/floor-plans/original-pdf/ch-a1-1br-plus.pdf",
+  "locatorImage": "/images/floor-plans/locators/ch-a1-locator.webp",
+  "locatorLabel": "VỊ TRÍ CĂN HỘ CH-A1 TRÊN MẶT BẰNG TẦNG"
+}

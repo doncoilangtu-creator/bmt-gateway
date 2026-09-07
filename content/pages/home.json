@@ -1,0 +1,130 @@
+{
+  "hero": {
+    "lineLeft": "BẢN SẮC\nCAO NGUYÊN",
+    "lineRight": "NHỊP SỐNG\nĐÔ THỊ MỚI",
+    "mediaImage": "/images/edited/hero.webp",
+    "ctaText": "Nhận thông tin dự án",
+    "metaLocation": "Nguyễn Chí Thanh, Tân An",
+    "metaCity": "Buôn Ma Thuột"
+  },
+  "manifesto": {
+    "editorial": "Sáu chuyển động của một địa chỉ mới",
+    "title": "NƠI KIẾN TRÚC, CẢNH QUAN VÀ GIAO THƯƠNG CÙNG HỘI TỤ",
+    "items": [
+      {
+        "index": "01",
+        "href": "#overview",
+        "text": "Cửa ngõ đô thị trên trục Nguyễn Chí Thanh"
+      },
+      {
+        "index": "02",
+        "href": "#overview",
+        "text": "Cấu trúc sống cân bằng giữa cao tầng và thấp tầng"
+      },
+      {
+        "index": "03",
+        "href": "#amenities",
+        "text": "Mảng xanh đi vào từng lớp kiến trúc"
+      },
+      {
+        "index": "04",
+        "href": "#townhouses",
+        "text": "Phố thương mại nối dài nhịp sống nội khu"
+      },
+      {
+        "index": "05",
+        "href": "#residences",
+        "text": "Không gian ở phù hợp nhiều thế hệ"
+      },
+      {
+        "index": "06",
+        "href": "#inquiry",
+        "text": "Điểm gặp mới của cộng đồng Buôn Ma Thuột"
+      }
+    ]
+  },
+  "overview": {
+    "editorial": "Tổng quan dự án",
+    "title": "MỘT CẤU TRÚC ĐÔ THỊ HOÀN CHỈNH",
+    "image": "/images/edited/landscape.webp",
+    "facts": [
+      {
+        "value": "4,86 ha",
+        "label": "Quy mô"
+      },
+      {
+        "value": "984",
+        "label": "Căn hộ"
+      },
+      {
+        "value": "152",
+        "label": "Thấp tầng"
+      }
+    ],
+    "profile": [
+      {
+        "label": "Vị trí",
+        "value": "161 Nguyễn Chí Thanh, P. Tân An, TP. Buôn Ma Thuột, Đắk Lắk"
+      },
+      {
+        "label": "Chủ đầu tư",
+        "value": "Xuân Mai Corporation"
+      },
+      {
+        "label": "Tư vấn thiết kế",
+        "value": "studioMilou"
+      },
+      {
+        "label": "Cấu trúc dự án",
+        "value": "Hai tháp căn hộ, khối đế thương mại và khu thấp tầng"
+      },
+      {
+        "label": "Loại hình",
+        "value": "Căn hộ, townhouse, shophouse và nhà ở xã hội"
+      }
+    ]
+  },
+  "identity": {
+    "editorial": "Biểu tượng của một nhịp sống mới",
+    "title": "CỬA NGÕ GIỮA THÀNH PHỐ CAO NGUYÊN",
+    "description": "Tại cửa ngõ phía Bắc Buôn Ma Thuột, dự án đón những dòng chuyển động từ trung tâm, sân bay và Quốc lộ 14. Kiến trúc hiện đại được đặt trong nền cảnh quan nhiệt đới, tạo nên một địa chỉ sống vừa kết nối vừa có khoảng lùi riêng.",
+    "image": "/images/new-media/dusk-facade.webp"
+  },
+  "identitySlides": [
+    {
+      "src": "/images/edited/identity-01.webp",
+      "alt": "Presentation1 p049 508 1988x1406 - EraCity"
+    },
+    {
+      "src": "/images/edited/identity-02.webp",
+      "alt": "Presentation1 p013 016 1989x1407 - EraCity"
+    },
+    {
+      "src": "/images/edited/identity-03.webp",
+      "alt": "Presentation1 p020 168 1989x1406 - EraCity"
+    },
+    {
+      "src": "/images/edited/identity-04.webp",
+      "alt": "Presentation1 p043 500 1989x1404 - EraCity"
+    }
+  ],
+  "amenitySlides": [
+    {
+      "src": "/images/edited/amenities-02.webp",
+      "alt": "Khuôn viên sân vườn xanh mát & hồ cảnh quan EraCity - StudioMilou"
+    },
+    {
+      "src": "/images/edited/amenities-03.webp",
+      "alt": "Đường dạo rợp bóng mát & chòi gỗ công viên EraCity - StudioMilou"
+    },
+    {
+      "src": "/images/edited/amenities-04.webp",
+      "alt": "Công viên cây xanh & bãi cỏ sinh thái EraCity - StudioMilou"
+    }
+  ],
+  "cinematicVideo": {
+    "videoSrc": "/videos/bmt-gateway-0616-hero.mp4",
+    "poster": "/images/new-media/overview-aerial.webp",
+    "caption": "EraCity - Kiến trúc trong chuyển động"
+  }
+}

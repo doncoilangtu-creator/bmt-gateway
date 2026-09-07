@@ -1,0 +1,58 @@
+{
+  "productId": "shophouse",
+  "id": "shophouse",
+  "index": "01",
+  "name": "NHÀ PHỐ THƯƠNG MẠI",
+  "type": "Shophouse",
+  "model": "PHỐ THƯƠNG MẠI · KHỐI THẤP TẦNG",
+  "format": "Tầng trệt thương mại · Không gian phía trên linh hoạt",
+  "description": "Mặt tiền kính rộng, hiên phố và các lớp sân vườn tạo nên dãy thương mại hiện đại trên trục nội khu.",
+  "image": "/images/pdf-source/shophouse-overview.webp",
+  "source": "/images/pdf-source/shophouse-source.pdf",
+  "planImage": "/images/floor-plans/lowrise/shophouse-xh22-d1-ground.webp",
+  "planSource": "/images/floor-plans/lowrise/shophouse-xh22-d1-ground.pdf",
+  "planLabel": "MẶT BẰNG TẦNG 1 · NHÀ PHỐ THƯƠNG MẠI",
+  "planDescription": "Bộ mặt bằng các tầng từ hồ sơ StudioMilou. Bố trí phòng khách, bếp + ăn, thang, các khoảng sân và không gian phía trên của nhà phố thương mại.",
+  "floors": [
+    {
+      "floorId": "tang-1",
+      "id": "tang-1",
+      "label": "TẦNG 1",
+      "image": "/images/floor-plans/lowrise/shophouse-tang-1.webp",
+      "pdf": "/images/floor-plans/lowrise/shophouse-tang-1.pdf",
+      "architectureImage": "/images/pdf-source/shophouse-overview.webp",
+      "architectureSource": "/images/pdf-source/shophouse-source.pdf",
+      "architectureLabel": "PHỐI CẢNH ĐẠI DIỆN · NHÀ PHỐ THƯƠNG MẠI"
+    },
+    {
+      "floorId": "tang-2",
+      "id": "tang-2",
+      "label": "TẦNG 2",
+      "image": "/images/floor-plans/lowrise/shophouse-tang-2.webp",
+      "pdf": "/images/floor-plans/lowrise/shophouse-tang-2.pdf",
+      "architectureImage": "/images/pdf-source/shophouse-overview.webp",
+      "architectureSource": "/images/pdf-source/shophouse-source.pdf",
+      "architectureLabel": "PHỐI CẢNH ĐẠI DIỆN · NHÀ PHỐ THƯƠNG MẠI"
+    },
+    {
+      "floorId": "tang-3",
+      "id": "tang-3",
+      "label": "TẦNG 3",
+      "image": "/images/floor-plans/lowrise/shophouse-tang-3.webp",
+      "pdf": "/images/floor-plans/lowrise/shophouse-tang-3.pdf",
+      "architectureImage": "/images/pdf-source/shophouse-overview.webp",
+      "architectureSource": "/images/pdf-source/shophouse-source.pdf",
+      "architectureLabel": "PHỐI CẢNH ĐẠI DIỆN · NHÀ PHỐ THƯƠNG MẠI"
+    },
+    {
+      "floorId": "tang-mai",
+      "id": "tang-mai",
+      "label": "TẦNG MÁI",
+      "image": "/images/floor-plans/lowrise/shophouse-tang-mai.webp",
+      "pdf": "/images/floor-plans/lowrise/shophouse-tang-mai.pdf",
+      "architectureImage": "/images/pdf-source/shophouse-overview.webp",
+      "architectureSource": "/images/pdf-source/shophouse-source.pdf",
+      "architectureLabel": "PHỐI CẢNH ĐẠI DIỆN · NHÀ PHỐ THƯƠNG MẠI"
+    }
+  ]
+}
