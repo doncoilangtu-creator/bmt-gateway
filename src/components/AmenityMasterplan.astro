@@ -45,6 +45,28 @@ const pinsMobile = [['01', 'Biển hiệu', '18%', '88%'], ['02', 'Hồ nước 
   </aside>
 </section>
 
+<script is:inline>
+  (() => {
+    const applySavedPins = () => {
+      try {
+        const saved = JSON.parse(localStorage.getItem('eracity_saved_pins') || localStorage.getItem('bmt_amenity_pins') || '{}');
+        document.querySelectorAll('[data-amenity-pin]').forEach(p => {
+          const id = p.getAttribute('data-amenity-pin');
+          if (saved[id] && saved[id].left && saved[id].top) {
+            p.style.setProperty('left', saved[id].left, 'important');
+            p.style.setProperty('top', saved[id].top, 'important');
+            p.style.setProperty('--pin-left', saved[id].left);
+            p.style.setProperty('--pin-top', saved[id].top);
+          }
+        });
+      } catch (e) {}
+    };
+    applySavedPins();
+    window.addEventListener('load', applySavedPins);
+    window.addEventListener('eracity:pins-updated', applySavedPins);
+  })();
+</script>
+
 
 <style>
   .amenity-edit-mode .amenity-pin {

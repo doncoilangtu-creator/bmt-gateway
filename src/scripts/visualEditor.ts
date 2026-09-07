@@ -396,7 +396,8 @@ function enableEditMode() {
     el.contentEditable = 'true';
     el.setAttribute('spellcheck', 'false');
   });
-
+  const amenityToolbar = document.querySelector('[data-edit-toolbar]') as HTMLElement;
+  if (amenityToolbar) amenityToolbar.hidden = false;
   showToast('Đã bật chế độ sửa! Nhấp vào bất kỳ chữ nào để sửa, bấm giữ ghim để kéo thả tự do.');
 }
 
@@ -407,6 +408,8 @@ function disableEditMode() {
   document.querySelectorAll<HTMLElement>(EDITABLE_SELECTORS).forEach((el) => {
     el.contentEditable = 'false';
   });
+  const amenityToolbar = document.querySelector('[data-edit-toolbar]') as HTMLElement;
+  if (amenityToolbar) amenityToolbar.hidden = true;
 }
 
 function setupEditableElements() {
@@ -561,9 +564,29 @@ function setupDraggablePins() {
       window.removeEventListener('pointerup', onPointerEnd);
       window.removeEventListener('pointercancel', onPointerEnd);
 
-      showToast(`Đã di chuyển ghim ${pinId} → ${pin.style.left}, ${pin.style.top}`);
-    };
+      const currentLeft = pin.style.left;
+      const currentTop = pin.style.top;
 
+      // 1. Lưu tức thì vào localStorage
+      try {
+        const saved = JSON.parse(localStorage.getItem('eracity_saved_pins') || '{}');
+        saved[pinId] = { left: currentLeft, top: currentTop };
+        localStorage.setItem('eracity_saved_pins', JSON.stringify(saved));
+        localStorage.setItem('bmt_amenity_pins', JSON.stringify(saved));
+        window.dispatchEvent(new CustomEvent('eracity:pins-updated'));
+      } catch (e) {}
+
+      // 2. Tự động gửi API lưu ngầm vào file hệ thống (Auto-Save on Drop)
+      fetch('/api/save-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ target: 'pins', data: { [pinId]: { left: currentLeft, top: currentTop } } }),
+      }).catch(() => {});
+
+      const hint = document.querySelector('[data-edit-hint]');
+      if (hint) hint.textContent = `✓ Đã lưu vị trí ghim ${pinId}!`;
+      showToast(`✓ Đã lưu vị trí ghim ${pinId} → ${currentLeft}, ${currentTop}`);
+    };
     pin.addEventListener('pointerdown', (e) => {
       if (!isEditing || !isAuthenticated) return;
       e.preventDefault();
@@ -624,6 +647,41 @@ function setupDraggablePins() {
   document.querySelectorAll<HTMLElement>('[data-map-label]').forEach((label, idx) => {
     bindPin(label, `map_label_${idx}`);
   });
+
+  // Kết nối các nút bấm trên thanh công cụ của bản đồ Masterplan
+  const amenityToolbar = document.querySelector('[data-edit-toolbar]') as HTMLElement;
+  if (amenityToolbar) {
+    if (isEditing) amenityToolbar.hidden = false;
+    const saveBtn = amenityToolbar.querySelector('[data-edit-save]') as HTMLButtonElement;
+    const exportBtn = amenityToolbar.querySelector('[data-edit-export]') as HTMLButtonElement;
+    const resetBtn = amenityToolbar.querySelector('[data-edit-reset]') as HTMLButtonElement;
+    const hint = amenityToolbar.querySelector('[data-edit-hint]') as HTMLElement;
+
+    saveBtn?.addEventListener('click', async () => {
+      if (hint) hint.textContent = '⏳ Đang lưu...';
+      saveBtn.disabled = true;
+      await saveAllChanges();
+      if (hint) hint.textContent = '✓ Đã lưu vị trí ghim thành công!';
+      saveBtn.disabled = false;
+    });
+
+    exportBtn?.addEventListener('click', async () => {
+      const saved = JSON.parse(localStorage.getItem('eracity_saved_pins') || '{}');
+      const json = JSON.stringify(saved, null, 2);
+      try {
+        await navigator.clipboard.writeText(json);
+        if (hint) hint.textContent = '✓ Đã copy JSON vào clipboard!';
+      } catch (e) {
+        if (hint) hint.textContent = json;
+      }
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      localStorage.removeItem('eracity_saved_pins');
+      localStorage.removeItem('bmt_amenity_pins');
+      window.location.reload();
+    });
+  }
 }
 
 async function saveAllChanges() {

@@ -53,6 +53,36 @@ import routesSvg from '../assets/pdf-page7-routes.svg?raw';
   </div>
 </section>
 
+<script is:inline>
+  (() => {
+    const applySavedMapPin = () => {
+      try {
+        const saved = JSON.parse(localStorage.getItem('eracity_saved_pins') || '{}');
+        const proj = saved['location_project'];
+        if (proj && proj.left && proj.top) {
+          const pin = document.querySelector('[data-map-pin]');
+          const pulse = document.querySelector('[data-map-pin-pulse]');
+          if (pin) {
+            pin.style.setProperty('left', proj.left, 'important');
+            pin.style.setProperty('top', proj.top, 'important');
+            pin.style.setProperty('--pin-left', proj.left);
+            pin.style.setProperty('--pin-top', proj.top);
+          }
+          if (pulse) {
+            pulse.style.setProperty('left', proj.left, 'important');
+            pulse.style.setProperty('top', proj.top, 'important');
+            pulse.style.setProperty('--pin-left', proj.left);
+            pulse.style.setProperty('--pin-top', proj.top);
+          }
+        }
+      } catch (e) {}
+    };
+    applySavedMapPin();
+    window.addEventListener('load', applySavedMapPin);
+    window.addEventListener('eracity:pins-updated', applySavedMapPin);
+  })();
+</script>
+
 <style>
   .location-story{position:relative;display:grid;grid-template-columns:minmax(270px,.5fr) minmax(0,1.3fr) minmax(250px,.42fr);min-height:760px;padding:0;background:#f5f1ea;overflow:hidden}
   .location-copy{align-self:center;padding:clamp(60px,7vw,110px) clamp(25px,4vw,70px)}

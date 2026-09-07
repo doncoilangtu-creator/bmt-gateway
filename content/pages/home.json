@@ -49,13 +49,13 @@
     "image": "http://localhost:4321/images/edited/landscape.webp",
     "facts": {
       "0": {
-        "value": "1,44 ha"
+        "value": "4,36 ha"
       },
       "1": {
-        "value": "108"
+        "value": "827"
       },
       "2": {
-        "value": "152"
+        "value": "117"
       }
     },
     "profile": [
