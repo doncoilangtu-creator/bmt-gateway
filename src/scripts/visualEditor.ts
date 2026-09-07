@@ -100,6 +100,22 @@ export async function initVisualEditor() {
 }
 
 async function checkAuthStatus() {
+  const isLocalhost =
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+  if (isLocalhost) {
+    isAuthenticated = true;
+    currentUser = 'admin (local)';
+    updateToolbarUI();
+    if (localStorage.getItem('eracity_visual_edit') === '1') {
+      isEditing = true;
+      enableEditMode();
+      updateToolbarUI();
+    }
+    return;
+  }
+
   try {
     const token = sessionStorage.getItem('eracity_admin_token') || '';
     const res = await fetch('/api/auth/check', {
@@ -110,7 +126,6 @@ async function checkAuthStatus() {
       isAuthenticated = true;
       currentUser = data.username || 'admin';
       updateToolbarUI();
-      // Nếu có cờ lưu trước đó thì tự động bật edit
       if (localStorage.getItem('eracity_visual_edit') === '1') {
         isEditing = true;
         enableEditMode();
@@ -622,6 +637,45 @@ async function saveAllChanges() {
     saveBtn.disabled = true;
     saveBtn.textContent = '⏳ Đang lưu...';
   }
+
+  // --- DOM HARVESTING: Thu thập trực tiếp toàn bộ dữ liệu đang hiển thị trên màn hình ---
+  // 1. Quét tất cả các thẻ có data-editable-key
+  document.querySelectorAll<HTMLElement>('[data-editable-key]').forEach((el) => {
+    const key = el.getAttribute('data-editable-key');
+    if (!key) return;
+    const val = el.innerText.trim();
+    if (key.startsWith('settings.')) {
+      setNestedValue(pending.settings, key.replace('settings.', ''), val);
+    } else {
+      setNestedValue(pending.home, key, val);
+    }
+  });
+
+  // 2. Quét tất cả các ghim tiện ích trên bản đồ
+  document.querySelectorAll<HTMLElement>('[data-amenity-pin]').forEach((pin) => {
+    const pinId = pin.getAttribute('data-amenity-pin');
+    if (!pinId) return;
+    const left = pin.style.left || pin.style.getPropertyValue('--pin-left');
+    const top = pin.style.top || pin.style.getPropertyValue('--pin-top');
+    if (left && top) {
+      pending.pins[pinId] = { left, top };
+    }
+  });
+
+  // 3. Quét ảnh editable
+  document.querySelectorAll<HTMLElement>('[data-editable-img]').forEach((container) => {
+    const key = container.getAttribute('data-editable-img');
+    const img = container.tagName === 'IMG' ? (container as HTMLImageElement) : container.querySelector('img');
+    const video = container.tagName === 'VIDEO' ? (container as HTMLVideoElement) : container.querySelector('video');
+    if (img && img.src) {
+      if (key === 'hero') setNestedValue(pending.home, 'hero.mediaImage', img.src);
+      if (key === 'landscape') setNestedValue(pending.home, 'overview.image', img.src);
+      if (key === 'identity' || key === 'facade') setNestedValue(pending.home, 'identity.image', img.src);
+    }
+    if (video && video.poster) {
+      if (key === 'poster') setNestedValue(pending.home, 'cinematicVideo.poster', video.poster);
+    }
+  });
 
   try {
     const token = sessionStorage.getItem('eracity_admin_token') || '';

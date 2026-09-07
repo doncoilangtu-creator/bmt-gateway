@@ -1,8 +1,8 @@
 {
   "hero": {
-    "lineLeft": "BẢN SẮC\nCAO NGUYÊN",
-    "lineRight": "NHỊP SỐNG\nĐÔ THỊ MỚI",
-    "mediaImage": "/images/edited/hero.webp",
+    "lineLeft": "BẢN SẮC CAO NGUYÊN",
+    "lineRight": "NHỊP SỐNG ĐÔ THỊ MỚI",
+    "mediaImage": "http://localhost:4321/images/edited/hero.webp",
     "ctaText": "Nhận thông tin dự án",
     "metaLocation": "Nguyễn Chí Thanh, Tân An",
     "metaCity": "Buôn Ma Thuột"
@@ -46,21 +46,18 @@
   "overview": {
     "editorial": "Tổng quan dự án",
     "title": "MỘT CẤU TRÚC ĐÔ THỊ HOÀN CHỈNH",
-    "image": "/images/edited/landscape.webp",
-    "facts": [
-      {
-        "value": "4,86 ha",
-        "label": "Quy mô"
+    "image": "http://localhost:4321/images/edited/landscape.webp",
+    "facts": {
+      "0": {
+        "value": "1,44 ha"
       },
-      {
-        "value": "984",
-        "label": "Căn hộ"
+      "1": {
+        "value": "108"
       },
-      {
-        "value": "152",
-        "label": "Thấp tầng"
+      "2": {
+        "value": "152"
       }
-    ],
+    },
     "profile": [
       {
         "label": "Vị trí",
@@ -124,7 +121,7 @@
   ],
   "cinematicVideo": {
     "videoSrc": "/videos/bmt-gateway-0616-hero.mp4",
-    "poster": "/images/new-media/overview-aerial.webp",
+    "poster": "http://localhost:4321/images/new-media/overview-aerial.webp",
     "caption": "EraCity - Kiến trúc trong chuyển động"
   },
   "customTexts": {

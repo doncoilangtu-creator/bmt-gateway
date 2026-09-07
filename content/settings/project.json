@@ -1,6 +1,6 @@
 {
   "name": "EraCity",
-  "shortName": "EraCity",
+  "shortName": "ERACITY",
   "kicker": "EraCity / Buôn Ma Thuột",
   "title": "Cửa ngõ sống xanh phía Đông Bắc Buôn Ma Thuột",
   "subtitle": "Tổ hợp căn hộ, townhouse, shophouse và nhà ở xã hội do Xuân Mai Corporation phát triển trên khu đất 4,86 ha tại trục Nguyễn Chí Thanh, phường Tân An.",
@@ -12,5 +12,8 @@
   "email": "cskhxuanmaidaklak@gmail.com",
   "ctaPrimary": "Nhận bảng giá",
   "ctaSecondary": "Xem mặt bằng",
-  "footerNote": "Thông tin và phối cảnh mang tính tham khảo theo hồ sơ thiết kế. Chi tiết chính thức căn cứ tài liệu được chủ đầu tư phê duyệt."
+  "footerNote": "Thông tin và phối cảnh mang tính tham khảo theo hồ sơ thiết kế. Chi tiết chính thức căn cứ tài liệu được chủ đầu tư phê duyệt.",
+  "brandSuffix": "CITY",
+  "contactTitle": "LIÊN HỆ DỰ ÁN",
+  "ctaRegister": "ĐĂNG KÝ NHẬN TIN"
 }
