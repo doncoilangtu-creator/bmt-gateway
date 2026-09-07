@@ -567,25 +567,13 @@ function setupDraggablePins() {
       const currentLeft = pin.style.left;
       const currentTop = pin.style.top;
 
-      // 1. Lưu tức thì vào localStorage
-      try {
-        const saved = JSON.parse(localStorage.getItem('eracity_saved_pins') || '{}');
-        saved[pinId] = { left: currentLeft, top: currentTop };
-        localStorage.setItem('eracity_saved_pins', JSON.stringify(saved));
-        localStorage.setItem('bmt_amenity_pins', JSON.stringify(saved));
-        window.dispatchEvent(new CustomEvent('eracity:pins-updated'));
-      } catch (e) {}
-
-      // 2. Tự động gửi API lưu ngầm vào file hệ thống (Auto-Save on Drop)
-      fetch('/api/save-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ target: 'pins', data: { [pinId]: { left: currentLeft, top: currentTop } } }),
-      }).catch(() => {});
+      // Ghi nhận vào bộ nhớ tạm (In-Memory) để gom lại lưu một thể khi bấm nút Lưu
+      pending.pins[pinId] = { left: currentLeft, top: currentTop };
+      updateDirtyCount();
 
       const hint = document.querySelector('[data-edit-hint]');
-      if (hint) hint.textContent = `✓ Đã lưu vị trí ghim ${pinId}!`;
-      showToast(`✓ Đã lưu vị trí ghim ${pinId} → ${currentLeft}, ${currentTop}`);
+      if (hint) hint.textContent = `Ghim ${pinId}: ${currentLeft} / ${currentTop} (Chưa lưu - bấm 💾 Lưu khi hoàn tất)`;
+      showToast(`Đã di chuyển ghim ${pinId} (Chưa lưu)`);
     };
     pin.addEventListener('pointerdown', (e) => {
       if (!isEditing || !isAuthenticated) return;
@@ -765,6 +753,13 @@ async function saveAllChanges() {
     }
 
     if (Object.keys(pending.pins).length > 0) {
+      try {
+        const existing = JSON.parse(localStorage.getItem('eracity_saved_pins') || '{}');
+        const merged = { ...existing, ...pending.pins };
+        localStorage.setItem('eracity_saved_pins', JSON.stringify(merged));
+        localStorage.setItem('bmt_amenity_pins', JSON.stringify(merged));
+      } catch (e) {}
+
       promises.push(
         fetch('/api/save-content', {
           method: 'POST',
