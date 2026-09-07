@@ -21,6 +21,8 @@ export interface TinaProjectSettings {
   location: string;
   developer: string;
   hotline: string;
+  zalo?: string;
+  zaloUrl?: string;
   email: string;
   ctaPrimary: string;
   ctaSecondary: string;

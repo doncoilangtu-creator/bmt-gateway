@@ -4,7 +4,7 @@ export default function InquiryPhoneCta({ phone = '0877 700 089', tel = '0877700
   return (
     <a href={`tel:${tel}`} className="v2-inquiry-sliding-cta group" aria-label={`Gọi hotline tư vấn: ${phone}`}>
       {/* Original text (slides down on hover) */}
-      <span className="v2-cta-label-main">
+      <span className="v2-cta-label-main" data-editable-key="settings.hotline">
         {phone}
       </span>
 

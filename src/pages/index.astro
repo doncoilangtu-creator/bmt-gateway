@@ -17,7 +17,8 @@ import {
 
 const hotlineDisplay = project.hotline;
 const hotlineTel = project.hotline.replace(/\s+/g, '');
-const zaloHref = `https://zalo.me/${hotlineTel}`;
+const zaloDisplay = project.zalo || hotlineDisplay;
+const zaloHref = project.zaloUrl || `https://zalo.me/${project.zalo ? project.zalo.replace(/\s+/g, '') : hotlineTel}`;
 
 const manifesto = homePageData.manifesto.items;
 const projectProfile = homePageData.overview.profile;
@@ -154,7 +155,7 @@ const projectProfile = homePageData.overview.profile;
         <p class="v2-editorial">Khởi đầu một cuộc gặp</p>
         <h2>NHẬN THÔNG TIN PHÙ HỢP VỚI BẠN</h2>
         <p>Nhận mặt bằng nguồn, thông tin sản phẩm và tư vấn theo nhu cầu sở hữu.</p>
-        <InquiryPhoneCta client:idle />
+        <InquiryPhoneCta phone={project.hotline} tel={hotlineTel} client:idle />
       </article>
       <LeadForm client:load source="soho-v2-inquiry" />
     </section>
@@ -182,7 +183,7 @@ const projectProfile = homePageData.overview.profile;
       <p>Chủ đầu tư: <span data-editable-key="settings.developer">{project.developer}</span></p>
       <p>Hotline: <a href={`tel:${hotlineTel}`} data-editable-key="settings.hotline">{hotlineDisplay}</a></p>
       <p>Email: <a href={`mailto:${project.email}`} data-editable-key="settings.email">{project.email}</a></p>
-      <p>Zalo tư vấn: <a href={zaloHref} target="_blank" rel="noreferrer" data-editable-key="settings.zalo">{hotlineDisplay}</a></p>
+      <p>Zalo tư vấn: <a href={zaloHref} target="_blank" rel="noreferrer" data-editable-key="settings.zalo">{zaloDisplay}</a></p>
     </div>
     <div class="footer-cta">
       <a class="btn btn-ghost footer-register" href="#inquiry" data-editable-key="settings.ctaRegister">Đăng ký nhận tin</a>

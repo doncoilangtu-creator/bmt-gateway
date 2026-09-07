@@ -45,6 +45,8 @@ export default defineConfig({
           { type: "string", name: "location", label: "Địa chỉ dự án" },
           { type: "string", name: "developer", label: "Chủ đầu tư" },
           { type: "string", name: "hotline", label: "Hotline" },
+          { type: "string", name: "zalo", label: "Số Zalo tư vấn" },
+          { type: "string", name: "zaloUrl", label: "Đường dẫn link Zalo (https://zalo.me/...)" },
           { type: "string", name: "email", label: "Email liên hệ" },
           { type: "string", name: "ctaPrimary", label: "Nút hành động chính" },
           { type: "string", name: "ctaSecondary", label: "Nút hành động phụ" },
