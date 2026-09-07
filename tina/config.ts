@@ -48,6 +48,7 @@ export default defineConfig({
           { type: "string", name: "email", label: "Email liên hệ" },
           { type: "string", name: "ctaPrimary", label: "Nút hành động chính" },
           { type: "string", name: "ctaSecondary", label: "Nút hành động phụ" },
+          { type: "string", name: "footerNote", label: "Ghi chú chân trang (Footer)", ui: { component: "textarea" } },
         ],
       },
       {

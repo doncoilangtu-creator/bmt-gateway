@@ -24,6 +24,7 @@ export interface TinaProjectSettings {
   email: string;
   ctaPrimary: string;
   ctaSecondary: string;
+  footerNote?: string;
 }
 
 export interface TinaHomePage {

@@ -418,7 +418,12 @@ function setupEditableElements() {
     const path = getElementPath(target);
     const val = target.innerText.trim();
 
-    setNestedValue(pending.home, path, val);
+    if (path.startsWith('settings.')) {
+      const field = path.replace('settings.', '');
+      setNestedValue(pending.settings, field, val);
+    } else {
+      setNestedValue(pending.home, path, val);
+    }
     updateDirtyCount();
   });
 

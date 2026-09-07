@@ -175,18 +175,18 @@ const projectProfile = homePageData.overview.profile;
   </div>
 
   <footer class="footer-soho v2-footer">
-    <div class="footer-brand"><strong>Era</strong><span>City</span></div>
+    <div class="footer-brand"><strong data-editable-key="settings.shortName">{project.shortName || 'Era'}</strong><span data-editable-key="settings.brandSuffix">City</span></div>
     <div class="footer-contact">
-      <p class="footer-contact-title">Liên hệ dự án</p>
-      <p>{project.location}</p>
-      <p>Chủ đầu tư: {project.developer}</p>
-      <p>Hotline: <a href={`tel:${hotlineTel}`}>{hotlineDisplay}</a></p>
-      <p>Email: <a href={`mailto:${project.email}`}>{project.email}</a></p>
-      <p>Zalo tư vấn: <a href={zaloHref} target="_blank" rel="noreferrer">{hotlineDisplay}</a></p>
+      <p class="footer-contact-title" data-editable-key="settings.contactTitle">Liên hệ dự án</p>
+      <p data-editable-key="settings.location">{project.location}</p>
+      <p>Chủ đầu tư: <span data-editable-key="settings.developer">{project.developer}</span></p>
+      <p>Hotline: <a href={`tel:${hotlineTel}`} data-editable-key="settings.hotline">{hotlineDisplay}</a></p>
+      <p>Email: <a href={`mailto:${project.email}`} data-editable-key="settings.email">{project.email}</a></p>
+      <p>Zalo tư vấn: <a href={zaloHref} target="_blank" rel="noreferrer" data-editable-key="settings.zalo">{hotlineDisplay}</a></p>
     </div>
     <div class="footer-cta">
-      <a class="btn btn-ghost footer-register" href="#inquiry">Đăng ký nhận tin</a>
-      <p class="footer-note">Thông tin và phối cảnh mang tính tham khảo theo hồ sơ thiết kế. Chi tiết chính thức căn cứ tài liệu được chủ đầu tư phê duyệt.</p>
+      <a class="btn btn-ghost footer-register" href="#inquiry" data-editable-key="settings.ctaRegister">Đăng ký nhận tin</a>
+      <p class="footer-note" data-editable-key="settings.footerNote">{project.footerNote || 'Thông tin và phối cảnh mang tính tham khảo theo hồ sơ thiết kế. Chi tiết chính thức căn cứ tài liệu được chủ đầu tư phê duyệt.'}</p>
     </div>
   </footer>
 
